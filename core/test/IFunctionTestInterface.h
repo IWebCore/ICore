@@ -14,15 +14,9 @@ public:
     IFunctionTestInterface() = default;
 
 public:
-    virtual double $order() const final;
     virtual void $task() final;
+    virtual double $order() const final;
 };
-
-template<typename T, bool enabled>
-double IFunctionTestInterface<T, enabled>::$order() const
-{
-    return 1;
-}
 
 template<typename T, bool enabled>
 void IFunctionTestInterface<T, enabled>::$task()
@@ -30,6 +24,12 @@ void IFunctionTestInterface<T, enabled>::$task()
     if constexpr (enabled){
         ITestManage::instance().addTest("functionTest", &T::instance());
     }
+}
+
+template<typename T, bool enabled>
+double IFunctionTestInterface<T, enabled>::$order() const
+{
+    return 1;
 }
 
 $PackageWebCoreEnd

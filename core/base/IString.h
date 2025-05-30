@@ -1,9 +1,6 @@
 ﻿#pragma once
 
 #include <QtCore>
-//#include <QString>
-//#include <QByteArray>
-//#include <QList>
 #include <string>
 #include "core/base/IStringView.h"
 #include "core/base/IResult.h"

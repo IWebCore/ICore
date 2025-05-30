@@ -35,7 +35,7 @@ cacheToSources(
     ${CMAKE_CURRENT_LIST_DIR}/core/abort/IGlobalAbort.cpp 
     ${CMAKE_CURRENT_LIST_DIR}/core/application/IAsioApplication.cpp 
     ${CMAKE_CURRENT_LIST_DIR}/core/application/IAsioContext.cpp 
-    ${CMAKE_CURRENT_LIST_DIR}/core/application/default/ITimer.cpp 
+    ${CMAKE_CURRENT_LIST_DIR}/core/application/default/IAsioTimer.cpp 
     ${CMAKE_CURRENT_LIST_DIR}/core/base/IException.cpp 
     ${CMAKE_CURRENT_LIST_DIR}/core/base/IString.cpp 
     ${CMAKE_CURRENT_LIST_DIR}/core/base/IStringView.cpp 

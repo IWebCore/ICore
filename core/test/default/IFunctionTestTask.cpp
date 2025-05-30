@@ -11,7 +11,7 @@ double IFunctionTestTask::$order() const
 
 void IFunctionTestTask::$task()
 {
-    $ContextBool enabled("/test/unittest/enabled", false);
+    $ContextBool enabled("/test/functionTest/enabled", false);
     if(! (*enabled)){
         return;
     }

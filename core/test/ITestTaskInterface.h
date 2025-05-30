@@ -12,8 +12,7 @@ class ITestTaskInterface : public ITaskWareUnit<T, IEndupTaskCatagory, true>
 public:
     ITestTaskInterface() = default;
 public:
-    virtual double $order() const;
-    virtual void $task() = 0;
+    virtual double $order() const override;
 };
 
 template<typename T, bool enabled>

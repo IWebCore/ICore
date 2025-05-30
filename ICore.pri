@@ -11,7 +11,9 @@ win32 {
     LIBS += -lmswsock
 }
 
+CONFIG += precompile_header
 PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
+QMAKE_CXXFLAGS += /MP
 
 HEADERS += \
     $$PWD/core/abort/IAbortInterface.h \
@@ -22,8 +24,9 @@ HEADERS += \
     $$PWD/core/application/IApplicationInterface.h \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioContext.h \
-    $$PWD/core/application/default/ITimer.h \
+    $$PWD/core/application/default/IAsioTimer.h \
     $$PWD/core/base/IException.h \
+    $$PWD/core/base/IJson.h \
     $$PWD/core/base/IResult.h \
     $$PWD/core/base/IString.h \
     $$PWD/core/base/IStringView.h \
@@ -111,8 +114,9 @@ SOURCES += \
     $$PWD/core/abort/IGlobalAbort.cpp \
     $$PWD/core/application/IAsioApplication.cpp \
     $$PWD/core/application/IAsioContext.cpp \
-    $$PWD/core/application/default/ITimer.cpp \
+    $$PWD/core/application/default/IAsioTimer.cpp \
     $$PWD/core/base/IException.cpp \
+    $$PWD/core/base/IJson.cpp \
     $$PWD/core/base/IString.cpp \
     $$PWD/core/base/IStringView.cpp \
     $$PWD/core/base/IStringViewStash.cpp \

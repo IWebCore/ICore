@@ -1,5 +1,5 @@
 ﻿#include "IAsioContext.h"
-#include "core/application/default/ITimer.h"
+#include "core/application/default/IAsioTimer.h"
 #include "core/config/IContextImport.h"
 
 $PackageWebCoreBegin
@@ -37,7 +37,7 @@ void IAsioContext::post(IAsioContext::Task task)
 
 std::ptrdiff_t IAsioContext::startTimer(std::chrono::milliseconds duration, IAsioContext::Task task)
 {
-    auto timer = new ITimer(duration, task);
+    auto timer = new IAsioTimer(duration, task);
     instance().m_timers.append(timer);
     return reinterpret_cast<std::ptrdiff_t>(timer);
 }

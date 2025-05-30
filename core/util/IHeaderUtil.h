@@ -3,8 +3,8 @@
 #include <QtCore>
 #include <QtSql>
 #include <type_traits>
-#include <IJson.h>
 #include "core/util/IPackageUtil.h"
+#include "core/base/IJson.h"
 #include "core/base/IString.h"
 #include "core/base/IStringViewStash.h"
 #include "core/base/IStringView.h"

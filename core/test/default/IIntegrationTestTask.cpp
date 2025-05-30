@@ -11,7 +11,7 @@ double IIntegrationTestTask::$order() const
 
 void IIntegrationTestTask::$task()
 {
-    $ContextBool enabled("/test/unittest/enabled", false);
+    $ContextBool enabled("/test/integrationTest/enabled", false);
     if(! (*enabled)){
         return;
     }

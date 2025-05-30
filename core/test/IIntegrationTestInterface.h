@@ -14,15 +14,9 @@ public:
     IIntegrationTestInteface() = default;
 
 public:
-    virtual double $order() const final;
     virtual void $task() final;
+    virtual double $order() const final;
 };
-
-template<typename T, bool enabled>
-double IIntegrationTestInteface<T, enabled>::$$order() const
-{
-    return 2;
-}
 
 template<typename T, bool enabled>
 void IIntegrationTestInteface<T, enabled>::$task()
@@ -30,6 +24,12 @@ void IIntegrationTestInteface<T, enabled>::$task()
     if constexpr (enabled){
         ITestManage::instance().addTest("integrationTest", &T::instance());
     }
+}
+
+template<typename T, bool enabled>
+double IIntegrationTestInteface<T, enabled>::$$order() const
+{
+    return 2;
 }
 
 $PackageWebCoreEnd
