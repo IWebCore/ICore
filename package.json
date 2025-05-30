@@ -1,0 +1,11 @@
+{
+    "name":"ICore",
+    "group":"IWebCore",
+    "version":"1.0.0",
+    "author": "yuekeyuan",
+    "summary":"core library for all",
+    "dependencies": {
+        "asio/asio": "*",
+        "nolhmann/json": "*"
+    }
+}
