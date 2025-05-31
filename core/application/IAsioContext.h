@@ -22,7 +22,6 @@ public:
     void run(int threadCount);
 
 public:
-    // TODO: 将 std::ptrdiff_t 抽象为 handle 吧
     static void post(Task);
     static IHandle startTimer(std::chrono::milliseconds duration, Task);
     static void stopTimer(IHandle ptr);

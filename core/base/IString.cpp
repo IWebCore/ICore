@@ -115,7 +115,7 @@ IString::IString(IStringView&& stringView)
 IString::IString(const IStringView &stringView)
     : m_type(Type::IStringView), m_view(stringView)
 {
-//    solidify(); // NOTE:
+//    solidify();
 }
 
 IString &IString::operator=(const IString * value)
@@ -216,7 +216,6 @@ IString& IString::operator=(std::nullptr_t) {
     clear();
     m_type = Type::IStringView;
     m_view = {};
-//    solidify(); // NOTE:
     return *this;
 }
 

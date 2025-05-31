@@ -16,6 +16,7 @@ public:
 
 private:
     int m_threadCount{};
+    std::unique_ptr<QCoreApplication> m_qCoreApplication;
 };
 
 using IApplication = IAsioApplication;
