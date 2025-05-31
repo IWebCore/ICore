@@ -214,8 +214,6 @@ IString &IString::operator=(const IStringView &view)
 
 IString& IString::operator=(std::nullptr_t) {
     clear();
-    m_type = Type::IStringView;
-    m_view = {};
     return *this;
 }
 
@@ -341,6 +339,7 @@ void IString::clear() {
     }
     m_data = nullptr;
     m_type = Type::IStringView;
+    m_view = {};
 }
 
 void IString::copyFrom(const IString& other) {
