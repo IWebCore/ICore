@@ -2,6 +2,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISoloUnit.h"
+#include "core/base/IHandle.h"
 
 $PackageWebCoreBegin
 
@@ -23,8 +24,8 @@ public:
 public:
     // TODO: 将 std::ptrdiff_t 抽象为 handle 吧
     static void post(Task);
-    static std::ptrdiff_t startTimer(std::chrono::milliseconds duration, Task);
-    static void stopTimer(std::ptrdiff_t ptr);
+    static IHandle startTimer(std::chrono::milliseconds duration, Task);
+    static void stopTimer(IHandle ptr);
 
 private:
     asio::io_context m_context;

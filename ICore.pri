@@ -26,6 +26,7 @@ HEADERS += \
     $$PWD/core/application/IAsioContext.h \
     $$PWD/core/application/default/IAsioTimer.h \
     $$PWD/core/base/IException.h \
+    $$PWD/core/base/IHandle.h \
     $$PWD/core/base/IJson.h \
     $$PWD/core/base/IResult.h \
     $$PWD/core/base/IString.h \

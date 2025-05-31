@@ -35,17 +35,17 @@ void IAsioContext::post(IAsioContext::Task task)
     instance().m_context.post(task);
 }
 
-std::ptrdiff_t IAsioContext::startTimer(std::chrono::milliseconds duration, IAsioContext::Task task)
+IHandle IAsioContext::startTimer(std::chrono::milliseconds duration, IAsioContext::Task task)
 {
     auto timer = new IAsioTimer(duration, task);
     instance().m_timers.append(timer);
-    return reinterpret_cast<std::ptrdiff_t>(timer);
+    return reinterpret_cast<IHandle>(timer);
 }
 
-void IAsioContext::stopTimer(ptrdiff_t ptr)
+void IAsioContext::stopTimer(IHandle ptr)
 {
     for(auto timer : instance().m_timers){
-        if(ptr == reinterpret_cast<std::ptrdiff_t>(timer)){
+        if(ptr == reinterpret_cast<IHandle>(timer)){
             instance().m_timers.removeOne(timer);
             timer->cancelTimer();
             delete timer;
