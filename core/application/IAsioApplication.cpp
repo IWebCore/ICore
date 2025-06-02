@@ -53,7 +53,7 @@ SignalHandler::SignalHandler() : signals_(IAsioContext::instance().getContext())
 
 IAsioApplication::IAsioApplication(int argc, char **argv)
     : IApplicationInterface(argc, argv),
-      m_qcoreApplication(std::make_unique<QCoreApplication>(argc, argv))
+      m_qCoreApplication(std::make_unique<QCoreApplication>(argc, argv))
 {
     init();
 }

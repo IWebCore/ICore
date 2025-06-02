@@ -1,6 +1,7 @@
 INCLUDEPATH += $$PWD
 
 msvc {
+    QMAKE_CXXFLAGS += /MP
     debug {
         QMAKE_CXXFLAGS += /bigobj
     }
@@ -13,7 +14,6 @@ win32 {
 
 CONFIG += precompile_header
 PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
-QMAKE_CXXFLAGS += /MP
 
 HEADERS += \
     $$PWD/core/abort/IAbortInterface.h \

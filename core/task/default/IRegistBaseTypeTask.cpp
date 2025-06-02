@@ -5,7 +5,11 @@ $PackageWebCoreBegin
 namespace detail
 {
     template<typename T>
-    void registerBaseType(const QString &name);
+    void registerBaseType(const QString &name){
+        qRegisterMetaType<T>(name.toUtf8());
+        qRegisterMetaType<T>(QString((name + "&")).toUtf8());
+    }
+
     void registerNumberType();
     void registerStringConverter();
 }
@@ -14,13 +18,6 @@ void IRegistBaseTypeTask::$task()
 {
     detail::registerNumberType();
     detail::registerStringConverter();
-}
-
-template<typename T>
-void detail::registerBaseType<T>(const QString& name)
-{
-    qRegisterMetaType<T>(name.toUtf8());
-    qRegisterMetaType<T>(QString((name + "&")).toUtf8());
 }
 
 void detail::registerNumberType()
