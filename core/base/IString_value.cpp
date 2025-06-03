@@ -162,7 +162,7 @@ T detail::string_view_to(const IStringView& str, bool& ok)
         return {};
     }
 
-    qFatal("heere");
+    // TODO: modify
     ok = false;
     return {};
 

@@ -54,7 +54,9 @@ bool IStringView::operator ==(const char * data) const
 
 bool IStringView::operator <(IStringView data) const
 {
-    return std::string_view(*this) < std::string_view(data);
+    bool value = std::string_view(*this) < std::string_view(data);
+    return value;
+//    return std::string_view(*this) < std::string_view(data);
 }
 
 uint IStringView::qHash(const IStringView* obj, uint seed)

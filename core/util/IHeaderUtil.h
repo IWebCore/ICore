@@ -1,4 +1,8 @@
-﻿#pragma once
+﻿//#pragma once
+
+#ifndef  __IWEBCORE_IHEADERUTIL_GUARD__
+#define  __IWEBCORE_IHEADERUTIL_GUARD__
+
 
 #include <QtCore>
 #include <QtSql>
@@ -14,3 +18,5 @@
     #include <asio/ssl.hpp>
 #endif
 
+
+#endif

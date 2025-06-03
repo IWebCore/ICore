@@ -63,7 +63,7 @@ void IAbortInterface<T>::abort(int code, const char* data, const QString& descri
                     + " FUNCTION " + QString::fromLocal8Bit(location.function)
                     + " LINE " + QString::number(location.line));
     }
-    qFatal(tips.join("\n").toUtf8());
+    qFatal("%s", tips.join("\n").toUtf8().constData());
 }
 
 template<typename T>
@@ -74,7 +74,7 @@ void IAbortInterface<T>::checkAbortInfoLength()
         if((int)T::EndTag != T::instance().abortDescription().size()){
             QString info = "Abort tag count and abort description count mismatch, please add abort description. Abort at ";
             info.append(IMetaUtil::getTypeName<T>());
-            qFatal(info.toUtf8());
+            qFatal("%s", info.toUtf8().constData());
         }
     });
 }

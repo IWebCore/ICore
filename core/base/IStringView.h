@@ -19,6 +19,8 @@ class IStringView : public std::string_view
 {
 public:
     IStringView() = default;
+    constexpr IStringView& operator=(const IStringView&) noexcept = default;
+    constexpr IStringView& operator=(IStringView&&) noexcept = default;
     explicit IStringView(const std::string& data);
     explicit IStringView(const QByteArray& data);
     explicit constexpr IStringView(std::string_view data);

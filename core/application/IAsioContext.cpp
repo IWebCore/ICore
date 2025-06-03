@@ -19,13 +19,13 @@ asio::io_context &IAsioContext::getContext()
 void IAsioContext::run(int threadCount)
 {
     std::vector<std::thread> threads;
-    for(std::size_t i=0; i<threadCount; i++){
+    for(int i=0; i<threadCount; i++){
         threads.emplace_back(std::thread([&](){
             m_context.run();
         }));
     }
     m_context.run();
-    for(std::size_t i=0; i<threadCount; i++){
+    for(int i=0; i<threadCount; i++){
         threads[i].join();
     }
 }
