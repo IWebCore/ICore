@@ -1,7 +1,7 @@
-﻿//#pragma once
+﻿#pragma once
 
-#ifndef  __IWEBCORE_IHEADERUTIL_GUARD__
-#define  __IWEBCORE_IHEADERUTIL_GUARD__
+//#ifndef  __IWEBCORE_IHEADERUTIL_GUARD__
+//#define  __IWEBCORE_IHEADERUTIL_GUARD__
 
 
 #include <QtCore>
@@ -19,4 +19,4 @@
 #endif
 
 
-#endif
+//#endif

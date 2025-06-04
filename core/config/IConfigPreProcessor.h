@@ -40,3 +40,4 @@ public:     \
     virtual std::string path() const final { return #path_ ; }  \
 };  \
 $PackageWebCoreEnd
+

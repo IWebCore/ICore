@@ -6,6 +6,6 @@
     "summary":"core library for all",
     "dependencies": {
         "asio/asio": "*",
-        "nolhmann/json": "*"
+        "nlohmann/json": "*"
     }
 }
