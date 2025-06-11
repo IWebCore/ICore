@@ -5,15 +5,16 @@ msvc {
     debug {
         QMAKE_CXXFLAGS += /bigobj
     }
+
+    # TODO: test why mingw not work!!!
+    CONFIG += precompile_header
+    PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
 }
 
 win32 {
     LIBS += -lws2_32
     LIBS += -lmswsock
 }
-
-CONFIG += precompile_header
-PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
 
 HEADERS += \
     $$PWD/core/abort/IAbortInterface.h \
@@ -88,6 +89,7 @@ HEADERS += \
     $$PWD/core/test/default/IUnitTestTask.h \
     $$PWD/core/unit/IDynamicArrayMemoryPoolUnit.h \
     $$PWD/core/unit/IFixedArrayMemoryPoolUnit.h \
+    $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
     $$PWD/core/unit/IObjectMemoryPoolUnit.h \

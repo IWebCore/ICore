@@ -4,9 +4,7 @@
 #include "core/util/IJsonUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 
-#define $BeanFieldDeclare(type, name)                                                               \
-private:                                                                                            \
-    Q_PROPERTY(type name MEMBER name)                                                               \
+#define PP_BeanFieldDeclare(type, name) \
     Q_INVOKABLE IJson $##name##_toJsonValue() const {                                               \
         return IJsonUtil::toJson( name );                                                           \
     }                                                                                               \
@@ -14,6 +12,57 @@ private:                                                                        
         return IJsonUtil::fromJson( name, json);                                                    \
     }                                                                                               \
 public:
+
+#define PP_BeanFieldDeclareAfterWrite(type, name, writeFunc)                                \
+    Q_INVOKABLE IJson $##name##_toJsonValue() const {                                               \
+        return IJsonUtil::toJson( name );                                                           \
+    }                                                                                               \
+    Q_INVOKABLE bool $##name##_fromJsonValue(const IJson& json) {                                   \
+        auto val = IJsonUtil::fromJson( name, json);                                                \
+        if(val) writeFunc();                                                                        \
+        return val;                                                                                 \
+    }                                                                                               \
+public:
+
+#define PP_BeanFieldDeclareBeforeRead(type, name, readFunc)                                 \
+    Q_INVOKABLE IJson $##name##_toJsonValue() const {                                               \
+        readFunc();                                                                                 \
+        return IJsonUtil::toJson( name );                                                           \
+    }                                                                                               \
+    Q_INVOKABLE bool $##name##_fromJsonValue(const IJson& json) {                                   \
+        return IJsonUtil::fromJson( name, json);                                                    \
+    }                                                                                               \
+public:
+
+#define PP_BeanFieldDeclareBeforeReadAfterWrite(type, name, readFunc, writeFunc)            \
+    Q_INVOKABLE IJson $##name##_toJsonValue() const {                                               \
+        readFunc();                                                                                 \
+        return IJsonUtil::toJson( name );                                                           \
+    }                                                                                               \
+    Q_INVOKABLE bool $##name##_fromJsonValue(const IJson& json) {                                   \
+        auto val = IJsonUtil::fromJson( name, json);                                                \
+        if(val) writeFunc();                                                                        \
+        return val;                                                                                 \
+    }                                                                                               \
+public:
+
+
+#define $BeanFieldDeclare(type, name)                                                               \
+private:                                                                                            \
+    Q_PROPERTY(type name MEMBER name)                                                               \
+    PP_BeanFieldDeclare(type, name)
+
+#define $BeanFieldDeclareWithRead(type, name, readFunc)                                             \
+    Q_PROPERTY(type name MEMBER name)                                                               \
+    PP_BeanFieldDeclareBeforeRead(type, name, readFunc)
+
+#define $BeanFieldDeclareWithWrite(type, name, writeFunc)                                           \
+    Q_PROPERTY(type name MEMBER name)                                                               \
+    PP_BeanFieldDeclareAfterWrite(type, name, writeFunc)
+
+#define $BeanFieldDeclareWithReadWrite(type, name, readFunc, WriteFunc)                             \
+    Q_PROPERTY(type name MEMBER name READ readFunc WRITE writeFunc)                                 \
+    PP_BeanFieldDeclareBeforeReadAfterWrite(type, name, readFunc, WriteFunc)
 
 #define $BeanFieldRequired(name)    \
     Q_CLASSINFO(PP_STRING( $beanfieldrequired_ ## name ), #name)

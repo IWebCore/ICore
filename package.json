@@ -1,11 +1,12 @@
 {
     "name":"ICore",
-    "group":"IWebCore",
     "version":"1.0.0",
     "author": "yuekeyuan",
     "summary":"core library for all",
+    "license":"AGPL-3.0-only",
     "dependencies": {
-        "asio/asio": "*",
-        "nlohmann/json": "*"
-    }
+        "asio": "*",
+        "nlohmann.json": "*"
+    },
+    "keywords": ["ICore", "IWebCore"]
 }

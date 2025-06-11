@@ -110,12 +110,5 @@ IJson toJson(const QMap<T, U>& map)
     return result;
 }
 
-//template<typename T>
-//std::enable_if_t<std::is_arithmetic_v<T> || std::is_same_v<T, const char*>, IJson>
-//toJson(T value)
-//{
-//    return value;
-//}
-
 $IPackageEnd(IJsonUtil)
 $PackageWebCoreEnd

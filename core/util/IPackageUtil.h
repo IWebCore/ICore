@@ -138,44 +138,45 @@ inline namespace name1 {   \
 #define $IPackageEnd(...) PP_EXPAND( $IPackageEnd_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
 
-#define $PackageUsing_1(name1) \
+#define $IPackageUsing_1(name1) \
     using namespace name1;
 
-#define $PackageUsing_2(name1, name2) \
+#define $IPackageUsing_2(name1, name2) \
     using namespace name1::name2;
 
-#define $PackageUsing_3(name1, name2, name3) \
+#define $IPackageUsing_3(name1, name2, name3) \
     using namespace name1::name2::name3;
 
-#define $PackageUsing_4(name1, name2, name3, name4) \
+#define $IPackageUsing_4(name1, name2, name3, name4) \
     using namespace name1::name2::name3::name4;
 
-#define $PackageUsing_5(name1, name2, name3, name4, name5) \
+#define $IPackageUsing_5(name1, name2, name3, name4, name5) \
     using namespace name1::name2::name3::name4::name5;
 
-#define $PackageUsing_6(name1, name2, name3, name4, name5, name6) \
+#define $IPackageUsing_6(name1, name2, name3, name4, name5, name6) \
     using namespace name1::name2::name3::name4::name5::name6;
 
-#define $PackageUsing_7(name1, name2, name3, name4, name5, name6, name7) \
+#define $IPackageUsing_7(name1, name2, name3, name4, name5, name6, name7) \
     using namespace name1::name2::name3::name4::name5::name6::name7;
 
-#define $PackageUsing_8(name1, name2, name3, name4, name5, name6, name7, name8) \
+#define $IPackageUsing_8(name1, name2, name3, name4, name5, name6, name7, name8) \
     using namespace name1::name2::name3::name4::name5::name6::name7::name8;
 
-#define $PackageUsing_9(name1, name2, name3, name4, name5, name6, name7, name8, name9) \
+#define $IPackageUsing_9(name1, name2, name3, name4, name5, name6, name7, name8, name9) \
     using namespace name1::name2::name3::name4::name5::name6::name7::name8::name9;
 
-#define $PackageUsing_(N) $PackageUsing_##N
-#define $PackageUsing_EVAL(N) $PackageUsing_(N)
-#define $PackageUsing(...) PP_EXPAND( $PackageUsing_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__))
+#define $IPackageUsing_(N) $IPackageUsing_##N
+#define $IPackageUsing_EVAL(N) $IPackageUsing_(N)
+#define $IPackageUsing(...) PP_EXPAND( $IPackageUsing_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__))
 
 #define $PackageWebCoreBegin  $IPackageBegin(IWebCore)
 
 #define $PackageWebCoreEnd    $IPackageEnd(IWebCore)
 
+#define $PackageWebCoreUsing  $IPackageUsing(IWebCore)
+
 #define $PackageDetailBegin   $IPackageBegin(detail)
 
 #define $PackageDetailEnd     $IPackageEnd(detail)
-
 
 #define $PackageWebCoreName "IWebCore"

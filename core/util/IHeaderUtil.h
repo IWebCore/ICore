@@ -1,9 +1,12 @@
-﻿#pragma once
+﻿#if !defined(__MINGW32__) && !defined(__MINGW64__)
+    #pragma once
+#endif
 
-//#ifndef  __IWEBCORE_IHEADERUTIL_GUARD__
-//#define  __IWEBCORE_IHEADERUTIL_GUARD__
+#ifndef  __IWEBCORE_IHEADERUTIL_GUARD__
+#define  __IWEBCORE_IHEADERUTIL_GUARD__
 
-
+#include <QObject>
+#include <QMetaObject>
 #include <QtCore>
 #include <QtSql>
 #include <type_traits>
@@ -18,5 +21,4 @@
     #include <asio/ssl.hpp>
 #endif
 
-
-//#endif
+#endif

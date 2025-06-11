@@ -1,4 +1,4 @@
-﻿cacheToIncludes(${CMAKE_CURRENT_LIST_DIR})
+﻿loadToIncludes(${CMAKE_CURRENT_LIST_DIR})
 
 # QT += sql xml testlib
 # CONFIG += c++17
@@ -19,19 +19,19 @@
 find_package(Qt5 COMPONENTS Core Sql Test REQUIRED)
 
 if(WIN32)
-    cacheToLibraries(
+    loadToLibraries(
         ws2_32
         mswsock
     )
 
-    cacheToDefinitions(
+    loadToDefinitions(
         _WIN32_WINNT=0x0A00
     )
 
 endif()
 
 
-cacheToSources(
+loadToSources(
     ${CMAKE_CURRENT_LIST_DIR}/core/abort/IGlobalAbort.cpp 
     ${CMAKE_CURRENT_LIST_DIR}/core/application/IAsioApplication.cpp 
     ${CMAKE_CURRENT_LIST_DIR}/core/application/IAsioContext.cpp 
