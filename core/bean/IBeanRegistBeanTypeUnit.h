@@ -20,7 +20,6 @@ template<typename T>
 void IBeanRegistBeanTypeUnit<T>::registType()
 {
     registBean();
-
     IBeanRegistBaseTypeUnit<T>::registType();
 }
 

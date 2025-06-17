@@ -21,7 +21,7 @@ private:
 $PackageWebCoreEnd
 
 #define $TIC_TAC  \
-    ITicTac time_tic_tac##__LINE (__FILE__, __FUNCTION__, __LINE__);
+    ITicTac time_tic_tac##__LINE__ (__FILE__, __FUNCTION__, __LINE__);
 
 #define $TIC \
     auto timeTic = std::chrono::high_resolution_clock().now();

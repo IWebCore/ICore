@@ -11,6 +11,7 @@ inline IJson toJson(std::string&& value) {return std::move(value);}
 inline IJson toJson(const std::string& value) {return value;}
 inline IJson toJson(const QString& value) {return value.toStdString();}
 inline IJson toJson(const IString& value){return value.toStdString();}
+inline IJson toJson(const QByteArray& value){return value.toStdString();}
 inline IJson toJson(IJson&& value) {return std::move(value);}
 inline IJson toJson(const IJson& value){return value;}
 inline IJson toJson(const QDate& date) { return date.toString(Qt::ISODate).toStdString();}

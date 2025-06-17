@@ -33,22 +33,22 @@ QString IMetaUtil::getMetaClassInfoByName(const QMap<QString, QString> &map, con
     return defaultVal;
 }
 
-QMetaProperty IMetaUtil::getMetaPropertyByName(const QMetaObject& meta, QString name)
-{
-    auto props = getMetaProperties(meta);
-    return getMetaPropertyByName(props, name);
-}
+//QMetaProperty IMetaUtil::getMetaPropertyByName(const QMetaObject& meta, QString name)
+//{
+//    auto props = getMetaProperties(meta);
+//    return getMetaPropertyByName(props, name);
+//}
 
-QMetaProperty IMetaUtil::getMetaPropertyByName(const std::vector<QMetaProperty> &props, QString name)
-{
-    auto it = std::find_if(props.begin(), props.end(), [=](const QMetaProperty& prop){
-        return prop.name() == name;
-    });
-    if(it != props.end()){
-        return *it;
-    }
-    return {};
-}
+//QMetaProperty IMetaUtil::getMetaPropertyByName(const std::vector<QMetaProperty> &props, QString name)
+//{
+//    auto it = std::find_if(props.begin(), props.end(), [=](const QMetaProperty& prop){
+//        return prop.name() == name;
+//    });
+//    if(it != props.end()){
+//        return *it;
+//    }
+//    return {};
+//}
 
 //QStringList IMetaUtil::getIgnoredFields(const QMetaObject &meta)
 //{
@@ -110,21 +110,21 @@ std::vector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject &meta)
     return ret;
 }
 
-QStringList IMetaUtil::getMetaPropertyNames(const QMetaObject &meta)
-{
-    return getMetaPropertyMap(meta).keys();
-}
+//QStringList IMetaUtil::getMetaPropertyNames(const QMetaObject &meta)
+//{
+//    return getMetaPropertyMap(meta).keys();
+//}
 
-QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject &meta)
-{
-    QMap<QString, QMetaProperty> ret;
-    auto count = meta.propertyCount();
-    for(int i=0; i<count; i++){
-        const auto& property = meta.property(i);
-        ret[property.name()] = property;
-    }
-    return ret;
-}
+//QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject &meta)
+//{
+//    QMap<QString, QMetaProperty> ret;
+//    auto count = meta.propertyCount();
+//    for(int i=0; i<count; i++){
+//        const auto& property = meta.property(i);
+//        ret[property.name()] = property;
+//    }
+//    return ret;
+//}
 
 bool IMetaUtil::writeProperty(const QMetaProperty &prop, void *handler, const QVariant &value)
 {

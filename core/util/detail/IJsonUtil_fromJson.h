@@ -6,7 +6,6 @@
 $PackageWebCoreBegin
 $IPackageBegin(IJsonUtil)
 
-
 inline bool fromJson(bool& data, const IJson& json)
 {
     if(!json.is_boolean()) return false;
@@ -25,6 +24,13 @@ inline bool fromJson(std::string& data, const IJson& json)
 {
     if(!json.is_string()) return false;
     data = json.get<std::string>();
+    return true;
+}
+
+inline bool fromJson(QByteArray& data, const IJson& json)
+{
+    if(!json.is_string()) return false;
+    data = QByteArray::fromStdString(json.get<std::string>());
     return true;
 }
 
@@ -73,35 +79,30 @@ inline bool fromJson(QStringList& value, const IJson& json)
     return true;
 }
 
-// numbers
+// numbers and strings
 template <typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
 fromJson(T& data, const IJson& json) {
-//    if (!data) return false;
     if (!json.is_number()) return false;
 
-    try {
-        if constexpr (std::is_integral_v<T>) {
-            if (json.is_number_integer() || json.is_number_float()) {
-                auto value = json.get<double>(); // 先以浮点数形式获取值
-                if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
-                    data = static_cast<T>(value); // 范围内则安全转换
-                    return true;
-                }
+    if constexpr (std::is_integral_v<T>) {
+        if (json.is_number_integer() || json.is_number_float()) {
+            auto value = json.get<double>(); // 先以浮点数形式获取值
+            if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
+                data = static_cast<T>(value); // 范围内则安全转换
+                return true;
             }
         }
-        // 判断是否为浮点型
-        else if constexpr (std::is_floating_point_v<T>) {
-            if (json.is_number_float() || json.is_number_integer()) {
-                auto value = json.get<double>(); // 先以浮点数形式获取值
-                if (value >= -std::numeric_limits<T>::max() && value <= std::numeric_limits<T>::max()) {
-                    data = static_cast<T>(value); // 范围内则安全转换
-                    return true;
-                }
+    }
+    // 判断是否为浮点型
+    else if constexpr (std::is_floating_point_v<T>) {
+        if (json.is_number_float() || json.is_number_integer()) {
+            auto value = json.get<double>(); // 先以浮点数形式获取值
+            if (value >= -std::numeric_limits<T>::max() && value <= std::numeric_limits<T>::max()) {
+                data = static_cast<T>(value); // 范围内则安全转换
+                return true;
             }
         }
-    } catch (...) {
-        return false;
     }
     return false;
 }

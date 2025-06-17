@@ -3,8 +3,8 @@
 #include "IConfigPreProcessor.h"
 
 // enable config files scan
-#define $EnableConfigFiles(value)    \
-    PP_NORMAL_CONTEXT_CONFIG(EnableConfigFiles, /config/enableConfigFiles, value)
+#define $EnableConfigFiles(boolValue)    \
+    PP_NORMAL_CONTEXT_CONFIG(EnableConfigFiles, /config/enableConfigFiles, boolValue)
 
 // config file scan path
 #define $SetConfigFilePaths_(N) $SetConfigFilePaths_##N

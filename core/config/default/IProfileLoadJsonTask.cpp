@@ -12,6 +12,10 @@ namespace detail
     IJson parseJsonFile(const QString& path);
 }
 
+IProfileLoadJsonTask::IProfileLoadJsonTask()
+{
+}
+
 double IProfileLoadJsonTask::$order() const
 {
     return 99.0;

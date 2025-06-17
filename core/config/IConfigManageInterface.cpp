@@ -101,18 +101,9 @@ IJson IConfigManageInterface::getConfig(const std::string &path)
     if(path.empty()){
         return nullptr;
     }
-    if(path.find_first_of('.') != std::string::npos || path[0] != '/'){
-        std::string newPath = path[0] == '/' ? path : "/" + path;
-        std::replace(newPath.begin(), newPath.end(), '.', '/');
-        IJson::json_pointer p(path);
-        if(m_configs.contains(p)){
-            return m_configs[p];
-        }
-    }else{
-        IJson::json_pointer p(path);
-        if(m_configs.contains(p)){
-            return m_configs[p];
-        }
+    IJson::json_pointer pointer(path);
+    if(m_configs.contains(pointer)){
+        return m_configs[pointer];
     }
     return nullptr;
 }

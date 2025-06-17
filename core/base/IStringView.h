@@ -28,14 +28,15 @@ public:
     constexpr IStringView(const char* data);
     constexpr IStringView(const IStringView& data);
 
-    operator QByteArray() const;
     bool operator ==(const char*) const;
+    bool operator !=(const char*) const;
+    bool operator <(const char*) const;
     bool operator ==(IStringView) const;
     bool operator !=(IStringView) const;
     bool operator <(IStringView) const;
 
 public:
-    static uint qHash(const IStringView *obj, uint seed = 0);
+    static uint qHash(IStringView obj, uint seed = 0);
 
 public:
     QString toQString() const;
@@ -75,6 +76,11 @@ inline constexpr IStringView::IStringView(const IStringView& view)
 {
 }
 
+inline uint qHash(IStringView key, uint seed = 0) noexcept
+{
+    return IStringView::qHash(key, seed);
+}
+
 class IStringViewList : public QList<IStringView>
 {
 public:
@@ -84,5 +90,6 @@ public:
 public:
     std::string join(IStringView);
 };
+
 
 #endif

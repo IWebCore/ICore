@@ -9,6 +9,9 @@ $PackageWebCoreBegin
 class IProfileLoadJsonTask : public ITaskWareUnit<IProfileLoadJsonTask, IConfigTaskCatagory, true>, public ILoadProfileFileUnit
 {
 public:
+    IProfileLoadJsonTask();
+
+public:
     virtual double $order() const final;
     IJson config();
 

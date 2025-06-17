@@ -21,36 +21,41 @@ public:
     IString() = default;
     ~IString();
 
-    IString(const IString& other);
-    IString(IString&& other) noexcept;
-    IString& operator=(const IString& other);
-    IString& operator=(IString&& other) noexcept;
-
     IString(const IString*);
     IString(const std::string*);
     IString(const QByteArray*);
+    IString(const IStringView*);
 
     IString(const char*);
+    IString(IStringView stringView);
+    IString(const QString&) noexcept;
+
+    IString(const IString& other);
+    IString(IString&& other) noexcept;
+
     IString(const QByteArray& byteArray);
     IString(QByteArray&& byteArray) noexcept;
+
     IString(const std::string& stdString);
     IString(std::string&& stdString) noexcept;
-    IString(const QString&) noexcept;
-    IString(IStringView&& stringView);
-    IString(const IStringView& stringView);
 
     IString& operator=(const IString*);
     IString& operator=(const QByteArray*);
     IString& operator=(const std::string*);
+    IString& operator=(const IStringView*);
 
     IString& operator=(const char*);
+    IString& operator=(IStringView stringView);
     IString& operator=(const QString&);
+
+    IString& operator=(const IString& other);
+    IString& operator=(IString&& other) noexcept;
+
+
     IString& operator=(const QByteArray& byteArray);
     IString& operator=(QByteArray&& byteArray) noexcept;
     IString& operator=(const std::string& stdString);
     IString& operator=(std::string&& stdString) noexcept;
-    IString& operator=(IStringView&& stringView);
-    IString& operator=(const IStringView& view);
     IString& operator=(std::nullptr_t);
 
     bool operator ==(const IString&) const;
@@ -90,7 +95,7 @@ private:
 
 private:
     Type m_type{Type::IStringView};
-    void* m_data{};
+    void* m_data{nullptr};
 
 public:
     IStringView m_view{};

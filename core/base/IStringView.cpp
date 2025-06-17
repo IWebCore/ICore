@@ -1,17 +1,11 @@
 ﻿#include "IStringView.h"
 #include "asio.hpp"
 
-template<>
-inline uint qHash<IStringView>(const IStringView &obj, uint seed)
-{
-    return IStringView::qHash(&obj, seed);
-}
-
 namespace std {
     template <>
     struct hash<IStringView> {
         size_t operator()(const IStringView& obj) const {
-            return IStringView::qHash(&obj);
+            return IStringView::qHash(obj);
         }
     };
 }
@@ -26,9 +20,19 @@ IStringView::IStringView(const QByteArray &data)
 {
 }
 
-IStringView::operator QByteArray() const
+bool IStringView::operator ==(const char * data) const
 {
-    return toQByteArray();
+    return operator ==(IStringView(data));
+}
+
+bool IStringView::operator !=(const char* data) const
+{
+    return ! this->operator ==(data);
+}
+
+bool IStringView::operator <(const char* data) const
+{
+    return this->operator <(IStringView(data));
 }
 
 bool IStringView::operator ==(IStringView data) const
@@ -47,31 +51,28 @@ bool IStringView::operator !=(IStringView data) const
     return !this->operator ==(data);
 }
 
-bool IStringView::operator ==(const char * data) const
-{
-    return operator ==(IStringView(data));
-}
 
 bool IStringView::operator <(IStringView data) const
 {
-    bool value = std::string_view(*this) < std::string_view(data);
-    return value;
-//    return std::string_view(*this) < std::string_view(data);
+    return std::string_view(*this) < std::string_view(data);
 }
 
-uint IStringView::qHash(const IStringView* obj, uint seed)
+uint IStringView::qHash(IStringView key, uint seed)
 {
-    std::uint64_t hash_value = seed;
-    for (auto it = obj->cbegin(); it != obj->cend(); ++it) {
-        std::uint64_t char_hash = std::hash<char>{}(*it);
-        hash_value ^= char_hash + 0x9e3779b9 + ((hash_value << 6) | (hash_value >> 2));
+    size_t hash = seed;
+    const size_t length = key.size();
+    const char* data = key.data();
+
+    for (size_t i = 0; i < length; ++i) {
+        hash = (hash * 131) + static_cast<size_t>(data[i]);
     }
-    return static_cast<uint>(hash_value);
+    return static_cast<uint>(hash);
 }
 
 QString IStringView::toQString() const
 {
-    return QString::fromLocal8Bit(data(), static_cast<int>(length()));
+    return QString::fromStdString(std::string(*this));
+//    return QString::fromLocal8Bit(data(), static_cast<int>(length())); // TODO: 这个有问题
 }
 
 std::string IStringView::toStdString() const

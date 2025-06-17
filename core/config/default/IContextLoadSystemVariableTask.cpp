@@ -7,6 +7,10 @@ namespace detail
     IJson getSystemEnvironment();
 }
 
+IContextLoadSystemVariableTask::IContextLoadSystemVariableTask()
+{
+}
+
 IJson IContextLoadSystemVariableTask::config()
 {
     return detail::getSystemEnvironment();

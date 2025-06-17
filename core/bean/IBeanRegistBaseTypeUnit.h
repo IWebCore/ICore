@@ -32,7 +32,7 @@ private:
 template<typename T>
 void IBeanRegistBaseTypeUnit<T>::registType()
 {
-//    registBean();
+//    registBean();     // this is invalid because we do not want to register int to beans!, but we regist  QList<int> as bean.
     registQList();
     registStdList();
     registQVector();

@@ -26,9 +26,7 @@ private:
 
     std::atomic<Node*> m_stack{nullptr};
 
-    // 通过 T* 反推 Node*（安全版本）
     static Node* getNodeFromObject(T* obj) noexcept {
-        // 计算 data 在 Node 中的偏移量
         constexpr size_t data_offset = offsetof(Node, data);
         return reinterpret_cast<Node*>(reinterpret_cast<char*>(obj) - data_offset);
     }

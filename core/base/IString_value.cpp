@@ -1,6 +1,7 @@
 ﻿#include "IString.h"
-//#include <charconv.hpp>
-//#include <charconv>
+#if __has_include(<charconv>)
+    #include <charconv>
+#endif
 #include <string_view>
 #include <QtCore>
 
@@ -44,6 +45,17 @@ IResult<bool> IString::value<bool>() const
         return false;
     }
     return std::nullopt;
+}
+//造孽
+template<>
+IResult<char> IString::value<char>() const
+{
+    bool ok;
+    auto value = detail::string_view_to<char>(m_view, ok);
+    if(ok && (value > std::numeric_limits<char>::max() || value < std::numeric_limits<char>::min())){
+        return std::nullopt;
+    }
+    return static_cast<char>(value);
 }
 
 template<>
@@ -128,8 +140,27 @@ IResult<QDateTime> IString::value<QDateTime>() const
     return std::nullopt;
 }
 
-// I deprecated std::from_chars because mingw do not support it.
-// it will be update latter
+// TODO: 第二种方法对于 ulonglong 的处理不对
+#if  __has_include(<charconv>)
+
+template <typename T>
+T detail::string_view_to(const IStringView& str, bool& ok)
+{
+    if (str.empty()) {
+        ok = false;
+        return {};
+    }
+
+    T result{};
+    auto val = std::from_chars(str.data(), str.data()+str.length(), result);
+    if (val.ec != std::errc()) {
+        ok = false;
+        return {};
+    }
+    ok = true;
+    return result;
+}
+#else
 template <typename T>
 T detail::string_view_to(const IStringView& str, bool& ok)
 {
@@ -161,23 +192,8 @@ T detail::string_view_to(const IStringView& str, bool& ok)
         ok = false;
         return {};
     }
-
-    // TODO: modify
     ok = false;
     return {};
-
-//    if (str.empty()) {
-//        ok = false;
-//        return {};
-//    }
-
-//    T result{};
-//    auto val = std::from_chars(str.data(), str.data()+str.length(), result);
-//    if (val.ec != std::errc()) {
-//        ok = false;
-//        return {};
-//    }
-//    ok = true;
-//    return result;
 }
 
+#endif

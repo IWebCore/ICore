@@ -6,8 +6,10 @@
 
 $PackageWebCoreBegin
 
-class IContextLoadSystemVariableTask : public IContextTaskInterface<IContextLoadSystemVariableTask, false>
+class IContextLoadSystemVariableTask : public IContextTaskInterface<IContextLoadSystemVariableTask, true>
 {
+public:
+    IContextLoadSystemVariableTask();
 public:
     virtual IJson config() final;
 };

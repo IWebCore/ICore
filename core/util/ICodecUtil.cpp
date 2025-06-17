@@ -14,7 +14,7 @@ $PackageWebCoreBegin
     else if (x >= '0' && x <= '9')
       y = x - '0';
     else
-      assert(0);
+      assert(0);        // TODO: terrible!!!!!!!!!!!!
     return y;
   }
 }
