@@ -218,6 +218,16 @@ IString& IString::operator=(std::nullptr_t) {
     return *this;
 }
 
+bool IString::operator ==(const char *value) const
+{
+    return m_view.operator ==(value);
+}
+
+bool IString::operator ==(IStringView value) const
+{
+    return m_view.operator ==(value);
+}
+
 bool IString::operator ==(const IString &that) const
 {
     if(this == &that){
@@ -226,7 +236,37 @@ bool IString::operator ==(const IString &that) const
     return this->m_view.operator ==(that.m_view);
 }
 
+bool IString::operator ==(const std::string & value) const
+{
+    return  m_view.operator ==(IStringView(value));
+}
+
+bool IString::operator ==(const QByteArray &value) const
+{
+    return m_view.operator ==(IStringView(value));
+}
+
+bool IString::operator !=(const char *value) const
+{
+    return ! this->operator ==(value);
+}
+
+bool IString::operator !=(IStringView value) const
+{
+    return ! this->operator ==(value);
+}
+
 bool IString::operator !=(const IString & value) const
+{
+    return ! this->operator ==(value);
+}
+
+bool IString::operator !=(const std::string &value) const
+{
+    return ! this->operator ==(value);
+}
+
+bool IString::operator !=(const QByteArray &value) const
 {
     return ! this->operator ==(value);
 }

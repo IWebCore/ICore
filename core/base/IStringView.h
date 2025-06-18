@@ -9,30 +9,27 @@
 #ifndef __I_STRING_VIEW_GUARD__
 #define __I_STRING_VIEW_GUARD__
 
-namespace asio
-{
-    class const_buffer;
-}
-
 class IStringViewList;
 class IStringView : public std::string_view
 {
 public:
     IStringView() = default;
-    constexpr IStringView& operator=(const IStringView&) noexcept = default;
-    constexpr IStringView& operator=(IStringView&&) noexcept = default;
-    explicit IStringView(const std::string& data);
-    explicit IStringView(const QByteArray& data);
-    explicit constexpr IStringView(std::string_view data);
-    explicit constexpr IStringView(const char* data, std::size_t length);
+    IStringView(const std::string& data);
+    IStringView(const QByteArray& data);
+    constexpr IStringView(std::string_view data);
+    constexpr IStringView(const char* data, std::size_t length);
     constexpr IStringView(const char* data);
     constexpr IStringView(const IStringView& data);
 
-    bool operator ==(const char*) const;
+public:
+    constexpr IStringView& operator=(const IStringView&) noexcept = default;
+    constexpr IStringView& operator=(IStringView&&) noexcept = default;
+
+    bool operator == (const char*) const;
+    bool operator == (IStringView) const;
     bool operator !=(const char*) const;
-    bool operator <(const char*) const;
-    bool operator ==(IStringView) const;
     bool operator !=(IStringView) const;
+    bool operator <(const char*) const;
     bool operator <(IStringView) const;
 
 public:
@@ -42,7 +39,6 @@ public:
     QString toQString() const;
     std::string toStdString() const;
     QByteArray toQByteArray() const;
-    asio::const_buffer toAsioBuffer() const;
 
 public:
     IStringView substr(const size_type _Off, size_type _Count=std::string::npos) const;

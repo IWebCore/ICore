@@ -25,16 +25,6 @@ bool IStringView::operator ==(const char * data) const
     return operator ==(IStringView(data));
 }
 
-bool IStringView::operator !=(const char* data) const
-{
-    return ! this->operator ==(data);
-}
-
-bool IStringView::operator <(const char* data) const
-{
-    return this->operator <(IStringView(data));
-}
-
 bool IStringView::operator ==(IStringView data) const
 {
     if(this->length() != data.length()){
@@ -46,11 +36,20 @@ bool IStringView::operator ==(IStringView data) const
     return memcmp(this->data(), data.data(), this->length() * sizeof(IStringView::value_type)) == 0;
 }
 
+bool IStringView::operator !=(const char* data) const
+{
+    return ! this->operator ==(data);
+}
+
 bool IStringView::operator !=(IStringView data) const
 {
     return !this->operator ==(data);
 }
 
+bool IStringView::operator <(const char* data) const
+{
+    return this->operator <(IStringView(data));
+}
 
 bool IStringView::operator <(IStringView data) const
 {
@@ -83,11 +82,6 @@ std::string IStringView::toStdString() const
 QByteArray IStringView::toQByteArray() const
 {
     return QByteArray(data(), static_cast<int>(length()));
-}
-
-asio::const_buffer IStringView::toAsioBuffer() const
-{
-    return asio::const_buffer(data(), length());
 }
 
 IStringView IStringView::substr(const size_type _Off, size_type _Count) const

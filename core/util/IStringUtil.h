@@ -41,13 +41,13 @@ namespace IStringUtil
     }
 
     inline void print(const IString& data){
-        qDebug() << data.m_view.toQString();
+        qDebug() << data.toQString();
     }
 
     inline void print(const asio::const_buffer& data){
         qDebug() << "CONST BUFFER:"
                  << QString::number(data.size())
-                 << IString(IStringView(reinterpret_cast<const char*>(data.data()), data.size())).m_view.toQString();
+                 << IStringView(reinterpret_cast<const char*>(data.data()), data.size()).toQString();
     }
 }
 

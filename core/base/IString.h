@@ -58,8 +58,17 @@ public:
     IString& operator=(std::string&& stdString) noexcept;
     IString& operator=(std::nullptr_t);
 
-    bool operator ==(const IString&) const;
-    bool operator !=(const IString&) const;
+    bool operator == (const char*) const;
+    bool operator == (IStringView) const;
+    bool operator == (const IString&) const;
+    bool operator == (const std::string&) const;
+    bool operator == (const QByteArray&) const;
+    bool operator != (const char*) const;
+    bool operator != (IStringView) const;
+    bool operator != (const IString&) const;
+    bool operator != (const std::string&) const;
+    bool operator != (const QByteArray&) const;
+
     bool operator <(const IString&) const;
 
 public:

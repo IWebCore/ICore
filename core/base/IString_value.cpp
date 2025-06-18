@@ -113,7 +113,7 @@ IResult<IStringView> IString::value<IStringView>() const
 template<>
 IResult<QDate> IString::value<QDate>() const
 {
-    auto date = QVariant(this->m_view.toQString()).toDate();
+    auto date = QVariant(toQString()).toDate();
     if(date.isValid()){
         return date;
     }
@@ -123,7 +123,7 @@ IResult<QDate> IString::value<QDate>() const
 template<>
 IResult<QTime> IString::value<QTime>() const
 {
-    auto time = QVariant(this->m_view.toQString()).toTime();
+    auto time = QVariant(toQString()).toTime();
     if(time.isValid()){
         return time;
     }
@@ -133,7 +133,7 @@ IResult<QTime> IString::value<QTime>() const
 template<>
 IResult<QDateTime> IString::value<QDateTime>() const
 {
-    auto time = QVariant(this->m_view.toQString()).toDateTime();
+    auto time = QVariant(toQString()).toDateTime();
     if(time.isValid()){
         return time;
     }
