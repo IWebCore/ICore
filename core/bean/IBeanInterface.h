@@ -235,7 +235,7 @@ std::map<std::string, const QMetaMethod *> IBeanInterface<T, enabled, trait>::ge
     }
     return map;
 }
-// TODO: 看一下这几个特性！！！
+
 template<typename T, bool enabled, IBeanTrait trait>
 std::map<std::string, const QMetaMethod *> IBeanInterface<T, enabled, trait>::getOptionalMethodMap() const
 {

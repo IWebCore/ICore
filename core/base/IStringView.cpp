@@ -71,7 +71,6 @@ uint IStringView::qHash(IStringView key, uint seed)
 QString IStringView::toQString() const
 {
     return QString::fromStdString(std::string(*this));
-//    return QString::fromLocal8Bit(data(), static_cast<int>(length())); // TODO: 这个有问题
 }
 
 std::string IStringView::toStdString() const
@@ -115,9 +114,12 @@ IStringViewList IStringView::split(char delimiter) const
     return tokens;
 }
 
+// NOTE: 性能改进
 IStringViewList IStringView::split(IStringView delimiter) const
 {
     IStringViewList result;
+    result.reserve(this->size() / 4);
+
     size_t start = 0;
     size_t end = find(delimiter);
     while (end != std::string_view::npos) {

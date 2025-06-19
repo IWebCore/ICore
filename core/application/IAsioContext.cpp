@@ -24,7 +24,6 @@ void IAsioContext::run(int threadCount)
             m_context.run();
         }));
     }
-    m_context.run();
     for(int i=0; i<threadCount; i++){
         threads[i].join();
     }

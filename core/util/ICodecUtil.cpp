@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-    namespace detail {
+namespace detail {
   unsigned char ToHex(unsigned char x) { return x > 9 ? x + 55 : x + 48; }
 
   unsigned char FromHex(unsigned char x) {
@@ -14,7 +14,7 @@ $PackageWebCoreBegin
     else if (x >= '0' && x <= '9')
       y = x - '0';
     else
-      assert(0);        // TODO: terrible!!!!!!!!!!!!
+      assert(0);        // NOTE:!
     return y;
   }
 }
