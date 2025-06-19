@@ -87,12 +87,9 @@ HEADERS += \
     $$PWD/core/test/default/IFunctionTestTask.h \
     $$PWD/core/test/default/IIntegrationTestTask.h \
     $$PWD/core/test/default/IUnitTestTask.h \
-    $$PWD/core/unit/IDynamicArrayMemoryPoolUnit.h \
-    $$PWD/core/unit/IFixedArrayMemoryPoolUnit.h \
     $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
-    $$PWD/core/unit/IObjectMemoryPoolUnit.h \
     $$PWD/core/unit/IOrderUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/ISoloUnit.h \

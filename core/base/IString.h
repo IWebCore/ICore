@@ -21,6 +21,9 @@ public:
     IString() = default;
     ~IString();
 
+    template<std::size_t N>
+    IString(const char(*)[N]);
+    IString(const char**);
     IString(const IString*);
     IString(const std::string*);
     IString(const QByteArray*);
@@ -39,6 +42,9 @@ public:
     IString(const std::string& stdString);
     IString(std::string&& stdString) noexcept;
 
+    template<std::size_t N>
+    IString& operator=(const char(*)[N]);
+    IString& operator=(const char**);
     IString& operator=(const IString*);
     IString& operator=(const QByteArray*);
     IString& operator=(const std::string*);
@@ -50,7 +56,6 @@ public:
 
     IString& operator=(const IString& other);
     IString& operator=(IString&& other) noexcept;
-
 
     IString& operator=(const QByteArray& byteArray);
     IString& operator=(QByteArray&& byteArray) noexcept;
@@ -109,6 +114,20 @@ private:
 public:
     IStringView m_view{};
 };
+
+template<std::size_t N>
+IString::IString(const char (*data)[N] )
+    : m_view(*data, N-1)
+{
+}
+
+template<std::size_t N>
+IString& IString::operator=(const char (*data)[N])
+{
+    clear();
+    m_view = IStringView(*data, N-1);
+    return *this;
+}
 
 using IStringList = QList<IString>;
 
