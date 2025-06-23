@@ -13,13 +13,7 @@ namespace IMetaUtil
     QString getMetaClassInfoByName(const QMetaObject& meta, const QString& name, const QString& defaultVal = "");
     QString getMetaClassInfoByName(const QMap<QString, QString>& map, const QString& name, const QString& defaultVal = "");
 
-    std::vector<QMetaProperty> getMetaProperties(const QMetaObject &meta);
-//    QStringList getMetaPropertyNames(const QMetaObject& meta);
-
-//    QMap<QString, QMetaProperty> getMetaPropertyMap(const QMetaObject& meta);
-
-//    QMetaProperty getMetaPropertyByName(const QMetaObject& meta, QString name);
-//    QMetaProperty getMetaPropertyByName(const std::vector<QMetaProperty>& props, QString name);
+    QVector<QMetaProperty> getMetaProperties(const QMetaObject &meta);
 
     QVector<QMetaMethod> getMetaMethods(const QMetaObject& meta);
 

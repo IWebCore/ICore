@@ -34,7 +34,7 @@ private:
     int getMetaTypeId() const;
     const QVector<QMetaMethod>& getMetaMethods() const;
     const QMap<QString, QString>& getMetaClassInfos() const;
-    const std::vector<QMetaProperty>& getMetaProperties() const;
+    const QVector<QMetaProperty>& getMetaProperties() const;
     const QMetaProperty& getMetaProperty(const QString& name) const;
     const QMetaMethod& getMetaMethod(const QString &name) const;
 
@@ -159,7 +159,7 @@ const QMap<QString, QString>& IBeanInterface<T, enabled, trait>::getMetaClassInf
 }
 
 template<typename T, bool enabled, IBeanTrait trait>
-const std::vector<QMetaProperty>& IBeanInterface<T, enabled, trait>::getMetaProperties() const
+const QVector<QMetaProperty>& IBeanInterface<T, enabled, trait>::getMetaProperties() const
 {
     static const auto& properties = IMetaUtil::getMetaProperties(T::staticMetaObject);
     return properties;

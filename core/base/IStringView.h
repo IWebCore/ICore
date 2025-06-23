@@ -9,6 +9,8 @@
 #ifndef __I_STRING_VIEW_GUARD__
 #define __I_STRING_VIEW_GUARD__
 
+class IString;
+class IStringView;
 class IStringViewList;
 class IStringView : public std::string_view
 {
@@ -16,6 +18,15 @@ public:
     IStringView() = default;
     IStringView(const std::string& data);
     IStringView(const QByteArray& data);
+
+    template<std::size_t N>
+    IStringView(const char(*)[N]);
+
+    IStringView(const char**);
+    IStringView(const IString* data);
+    IStringView(const std::string* data);
+    IStringView(const QByteArray* data);
+
     constexpr IStringView(std::string_view data);
     constexpr IStringView(const char* data, std::size_t length);
     constexpr IStringView(const char* data);
@@ -51,6 +62,11 @@ public:
     bool containIgnoreCase(IStringView) const;
 };
 
+template<std::size_t N>
+IStringView::IStringView(const char(*data)[N])
+    : std::string_view(*data, N-1)
+{
+}
 
 inline constexpr IStringView::IStringView(std::string_view data)
     : std::string_view(data)

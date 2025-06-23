@@ -1,5 +1,6 @@
 ﻿#include "IStringView.h"
 #include "asio.hpp"
+#include "core/base/IString.h"
 
 namespace std {
     template <>
@@ -17,6 +18,27 @@ IStringView::IStringView(const std::string &data)
 
 IStringView::IStringView(const QByteArray &data)
     : std::string_view(data.data(), data.length())
+{
+}
+
+IStringView::IStringView(const char **data)
+    : std::string_view(*data)
+{
+}
+
+IStringView::IStringView(const IString *data)
+    : std::string_view(data->m_view)
+{
+}
+
+IStringView::IStringView(const std::string *data)
+    : std::string_view(*data)
+{
+
+}
+
+IStringView::IStringView(const QByteArray *data)
+    : IStringView(*data)
 {
 }
 

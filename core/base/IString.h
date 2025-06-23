@@ -8,7 +8,7 @@
 #ifndef __I_STRING_GUARD__
 #define __I_STRING_GUARD__
 
-struct IString
+class IString
 {
 private:
     enum class Type {

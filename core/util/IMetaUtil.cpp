@@ -33,62 +33,6 @@ QString IMetaUtil::getMetaClassInfoByName(const QMap<QString, QString> &map, con
     return defaultVal;
 }
 
-//QMetaProperty IMetaUtil::getMetaPropertyByName(const QMetaObject& meta, QString name)
-//{
-//    auto props = getMetaProperties(meta);
-//    return getMetaPropertyByName(props, name);
-//}
-
-//QMetaProperty IMetaUtil::getMetaPropertyByName(const std::vector<QMetaProperty> &props, QString name)
-//{
-//    auto it = std::find_if(props.begin(), props.end(), [=](const QMetaProperty& prop){
-//        return prop.name() == name;
-//    });
-//    if(it != props.end()){
-//        return *it;
-//    }
-//    return {};
-//}
-
-//QStringList IMetaUtil::getIgnoredFields(const QMetaObject &meta)
-//{
-//    QStringList ignoredFields;
-//    static const QString prefix = "iwebcore_bean_field_ignorable_";
-//    auto clsInfo = IMetaUtil::getMetaClassInfoMap(meta);
-//    auto keys = clsInfo.keys();
-//    for(auto key : keys){
-//        if(key.startsWith(prefix)){
-//            ignoredFields.append(clsInfo[key]);
-//        }
-//    }
-//    return ignoredFields;
-//}
-
-//QVector<int> IMetaUtil::getIgnoredFieldIndexes(const QMetaObject &meta)
-//{
-//    static const QString prefix = "iwebcore_bean_field_ignorable_";
-
-//    QVector<int> ignoredFields;
-//    auto clsInfo = getMetaClassInfoMap(meta);
-//    auto props = getMetaProperties(meta);
-//    auto keys = clsInfo.keys();
-//    for(auto key : keys){
-//        if(key.startsWith(prefix)){
-//            QString name = clsInfo[key];
-//            int i=0;
-//            for(const auto& prop : props){
-//                if(name == prop.name()){
-//                    ignoredFields.append(i);
-//                    break;
-//                }
-//                i++;
-//            }
-
-//        }
-//    }
-//    return ignoredFields;
-//}
-
 QVector<QMetaMethod> IMetaUtil::getMetaMethods(const QMetaObject &meta)
 {
     QVector<QMetaMethod> ret;
@@ -99,32 +43,15 @@ QVector<QMetaMethod> IMetaUtil::getMetaMethods(const QMetaObject &meta)
     return ret;
 }
 
-
-std::vector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject &meta)
+QVector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject &meta)
 {
-    std::vector<QMetaProperty> ret;
+    QVector<QMetaProperty> ret;
     auto count = meta.propertyCount();
     for(int i=0; i<count; i++){
         ret.push_back(meta.property(i));
     }
     return ret;
 }
-
-//QStringList IMetaUtil::getMetaPropertyNames(const QMetaObject &meta)
-//{
-//    return getMetaPropertyMap(meta).keys();
-//}
-
-//QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject &meta)
-//{
-//    QMap<QString, QMetaProperty> ret;
-//    auto count = meta.propertyCount();
-//    for(int i=0; i<count; i++){
-//        const auto& property = meta.property(i);
-//        ret[property.name()] = property;
-//    }
-//    return ret;
-//}
 
 bool IMetaUtil::writeProperty(const QMetaProperty &prop, void *handler, const QVariant &value)
 {

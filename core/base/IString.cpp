@@ -17,7 +17,6 @@ IString::~IString()
 IString::IString(const char ** data)
     : m_view(*data)
 {
-    qDebug() << __FUNCTION__ << "const char**";
 }
 
 IString::IString(const IString * istring)
@@ -43,7 +42,6 @@ IString::IString(const std::string * stdStringPtr)
 IString::IString(const char * data)
     : m_view(data)
 {
-    qDebug() << __FUNCTION__ << "const char*";
     solidify();
 }
 
@@ -98,8 +96,6 @@ IString::IString(std::string&& stdString) noexcept
 
 IString &IString::operator=(const char **data)
 {
-    qDebug() << __FUNCTION__ << "const char**";
-
     clear();
     m_type = Type::IStringView;
     m_view = IStringView(*data);
@@ -118,7 +114,7 @@ IString &IString::operator=(const QByteArray *value)
 {
     clear();
     m_type = Type::IStringView;
-    m_view = IStringView(*value);
+    m_view = IStringView(*value, value->length());
     return *this;
 }
 
