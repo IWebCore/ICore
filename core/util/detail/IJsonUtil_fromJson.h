@@ -2,6 +2,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/util/ITraitUtil.h"
+#include "core/util/IConvertUtil.h"
 
 $PackageWebCoreBegin
 $IPackageBegin(IJsonUtil)
@@ -83,7 +84,14 @@ inline bool fromJson(QStringList& value, const IJson& json)
 template <typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
 fromJson(T& data, const IJson& json) {
-    if (!json.is_number()) return false;
+    if (!json.is_number() && !json.is_string()) return false;
+
+    if(json.is_string()){
+        bool ok;
+        std::string str = json.get<std::string>();
+        data = IConvertUtil::stringToNumber<T>(str, ok);
+        return ok;
+    }
 
     if constexpr (std::is_integral_v<T>) {
         if (json.is_number_integer() || json.is_number_float()) {

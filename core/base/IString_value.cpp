@@ -1,7 +1,5 @@
 ﻿#include "IString.h"
-#if __has_include(<charconv>)
-    #include <charconv>
-#endif
+#include "core/util/IConvertUtil.h"
 #include <string_view>
 #include <QtCore>
 
@@ -140,60 +138,8 @@ IResult<QDateTime> IString::value<QDateTime>() const
     return std::nullopt;
 }
 
-// NOTE: 第二种方法对于 ulonglong 的处理不对，有溢出的问题
-#if  __has_include(<charconv>)
-
-template <typename T>
+template<typename T>
 T detail::string_view_to(const IStringView& str, bool& ok)
 {
-    if (str.empty()) {
-        ok = false;
-        return {};
-    }
-
-    T result{};
-    auto val = std::from_chars(str.data(), str.data()+str.length(), result);
-    if (val.ec != std::errc()) {
-        ok = false;
-        return {};
-    }
-    ok = true;
-    return result;
+    return IConvertUtil::stringToNumber<T>(std::string(str), ok);
 }
-#else
-template <typename T>
-T detail::string_view_to(const IStringView& str, bool& ok)
-{
-    ok = true;
-    try{
-        if constexpr (std::is_same_v<T, double>){
-            return std::stod(std::string(str));
-        }
-        if constexpr (std::is_same_v<T, float>){
-            return std::stof(std::string(str));
-        }
-        if constexpr (std::is_signed_v<T>){
-            auto value = std::stoll(std::string(str));
-            if(value > std::numeric_limits<T>::max() || value < std::numeric_limits<T>::min()){
-                ok = false;
-                return {};
-            }
-            return value;
-        }
-        if constexpr (! std::is_signed_v<T>){
-            auto value = std::stoull(std::string(str));
-            if(value > std::numeric_limits<T>::max() || value < std::numeric_limits<T>::min()){
-                ok = false;
-                return {};
-            }
-            return value;
-        }
-    }catch(...){
-        ok = false;
-        return {};
-    }
-    ok = false;
-    return {};
-}
-
-#endif

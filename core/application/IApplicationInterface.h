@@ -3,6 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/task/ITaskManage.h"
 #include "core/application/IAsioContext.h"
+#include <filesystem>
 
 $PackageWebCoreBegin
 
@@ -15,8 +16,10 @@ public:
 
 public:
     static T& instance();
-    static QString applicationPath();
-    static const QStringList& arguments();
+    QString applicationPath();
+    QString workingDirectory();
+    QString appName();
+    const QStringList& arguments();
     static int64_t time();
 
 public:
@@ -32,10 +35,7 @@ protected:
 };
 
 template<typename T>
-T* IApplicationInterface<T>::m_instance;
-
-//template<typename T>
-//std::atomic_int64_t IApplicationInterface<T>::m_time;
+T* IApplicationInterface<T>::m_instance = nullptr;
 
 template<typename T>
 IApplicationInterface<T>::IApplicationInterface(int argc, char **argv)
@@ -59,7 +59,21 @@ T& IApplicationInterface<T>::instance()
 template<typename T>
 QString IApplicationInterface<T>::applicationPath()
 {
-    return QFileInfo(instance().arguments().first()).absolutePath();
+    return QFileInfo(m_arguments.first()).absolutePath();
+}
+
+template<typename T>
+QString IApplicationInterface<T>::workingDirectory()
+{
+    std::filesystem::path cwd = std::filesystem::current_path();
+    return QString::fromStdString(cwd.string());
+}
+
+template<typename T>
+QString IApplicationInterface<T>::appName()
+{
+    QString path = m_arguments.first();
+    return path.replace("\\", "/").split("/").last();
 }
 
 template<typename T>
