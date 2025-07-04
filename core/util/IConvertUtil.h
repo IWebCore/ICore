@@ -2,7 +2,9 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/base/IResult.h"
-#include <charconv>
+#if  __has_include(<charconv>)
+    #include <charconv>
+#endif
 
 $PackageWebCoreBegin
 

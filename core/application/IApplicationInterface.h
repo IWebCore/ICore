@@ -3,7 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/task/ITaskManage.h"
 #include "core/application/IAsioContext.h"
-#include <filesystem>
+//#include <filesystem>
 
 $PackageWebCoreBegin
 
@@ -65,8 +65,9 @@ QString IApplicationInterface<T>::applicationPath()
 template<typename T>
 QString IApplicationInterface<T>::workingDirectory()
 {
-    std::filesystem::path cwd = std::filesystem::current_path();
-    return QString::fromStdString(cwd.string());
+    return QDir::currentPath();
+//    std::filesystem::path cwd = std::filesystem::current_path();
+//    return QString::fromStdString(cwd.string());
 }
 
 template<typename T>
