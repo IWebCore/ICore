@@ -140,7 +140,7 @@ IStringViewList IStringView::split(char delimiter) const
 IStringViewList IStringView::split(IStringView delimiter) const
 {
     IStringViewList result;
-    result.reserve(this->size() / 4);
+    result.reserve(static_cast<int>(this->size() / 4));
 
     size_t start = 0;
     size_t end = find(delimiter);

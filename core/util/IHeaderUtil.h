@@ -8,7 +8,10 @@
 #include <QObject>
 #include <QMetaObject>
 #include <QtCore>
-#include <QtSql>
+#if __has_include(<QtSql>)
+    #include <QtSql>
+#endif
+
 #include <type_traits>
 #include "core/util/IPackageUtil.h"
 #include "core/base/IJson.h"

@@ -2,7 +2,6 @@
 
 #include "core/util/IHeaderUtil.h"
 #include <core/unit/ISoloUnit.h>
-#include <QtTest>
 
 $PackageWebCoreBegin
 

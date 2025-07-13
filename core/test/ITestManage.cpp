@@ -1,4 +1,7 @@
 ﻿#include "ITestManage.h"
+#if __has_include(<QtTest>)
+    #include <QtTest>
+#endif
 
 $PackageWebCoreBegin
 
@@ -14,10 +17,16 @@ bool ITestManage::hasTests(const QString &type) const
 
 void ITestManage::invokeTests(const QString &type)
 {
+#if __has_include(<QtTest>)
     auto& objs = instance().m_testCases[type];
+
     for(auto obj : objs){
         QTest::qExec(obj);
     }
+#else
+    Q_UNUSED(type)
+    qFatal("Qt testlib do not configured, please configure Qt testlib in your configuration");
+#endif
 }
 
 $PackageWebCoreEnd
