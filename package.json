@@ -2,11 +2,14 @@
     "name":"ICore",
     "version":"1.0.0",
     "author": "yuekeyuan",
-    "summary":"core library for all",
+    "summary":"core library for IWebCore",
     "license":"AGPL-3.0-only",
+    "keywords": ["core", "IWebCore", "annotation", "bean", "config", "dependency injection", "task"],
+    "links":[
+        "https://github.com/IWebCore/ICore"
+    ],
     "dependencies": {
         "asio": "*",
         "nlohmann.json": "*"
-    },
-    "keywords": ["ICore", "IWebCore"]
+    }
 }
