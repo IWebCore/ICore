@@ -11,5 +11,7 @@
     "dependencies": {
         "asio": "*",
         "nlohmann.json": "*"
-    }
+    },
+    "isGlobal": true,
+    "publisher": "yuekeyuan"
 }
