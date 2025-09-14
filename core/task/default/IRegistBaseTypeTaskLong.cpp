@@ -1,14 +1,17 @@
-﻿#include "IRegistBaseTypeTask64bit.h"
+﻿#include "IRegistBaseTypeTaskLong.h"
 #include "core/bean/IBeanRegistBaseTypeUnit.h"
 
 $PackageWebCoreBegin
 
-void IRegistBaseTypeTask64bit::$task()
+IRegistBaseTypeTaskLong::IRegistBaseTypeTaskLong()
+{
+
+}
+
+void IRegistBaseTypeTaskLong::$task()
 {
     IBeanRegistBaseTypeUnit<long>::registType();
     IBeanRegistBaseTypeUnit<unsigned long>::registType();
-    IBeanRegistBaseTypeUnit<long long>::registType();
-    IBeanRegistBaseTypeUnit<unsigned long long>::registType();
 }
 
 $PackageWebCoreEnd

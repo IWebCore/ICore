@@ -1,4 +1,6 @@
-﻿#include "IAsioContext.h"
+﻿#if __has_include(<asio.hpp>)
+
+#include "IAsioContext.h"
 #include "core/application/default/IAsioTimer.h"
 #include "core/config/IContextImport.h"
 
@@ -54,3 +56,5 @@ void IAsioContext::stopTimer(IHandle ptr)
 }
 
 $PackageWebCoreEnd
+
+#endif

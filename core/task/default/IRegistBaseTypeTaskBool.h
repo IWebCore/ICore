@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 class IRegistBaseTypeTaskBool : public ITaskInstantUnit<IRegistBaseTypeTaskBool>
 {
 public:
-    IRegistBaseTypeTaskBool() = default;
+    IRegistBaseTypeTaskBool();
 
 public:
     virtual void $task() final;

@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QMetaObject>
 #include <QtCore>
+
 #if __has_include(<QtSql>)
     #include <QtSql>
 #endif
@@ -18,10 +19,12 @@
 #include "core/base/IString.h"
 #include "core/base/IStringViewStash.h"
 #include "core/base/IStringView.h"
-#include <asio.hpp>
 
-#ifdef ENABLE_SSL
-    #include <asio/ssl.hpp>
+#if __has_include(<asio.hpp>)
+    #include <asio.hpp>
+    #ifdef ENABLE_SSL
+        #include <asio/ssl.hpp>
+    #endif
 #endif
 
 #endif

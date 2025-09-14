@@ -68,6 +68,16 @@ QVariant IMetaUtil::readProperty(const QMetaProperty &prop, const void *handler)
     return prop.readOnGadget(handler);
 }
 
+const char *IMetaUtil::typeName(int id)
+{
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    return QMetaType::typeName(id);
+#else
+    return QMetaType(id).name();
+#endif
+}
+
+
 #if defined(__GNUC__)
     # include <cxxabi.h>
 #elif defined(__clang__)
@@ -105,4 +115,5 @@ QString IMetaUtil::demangleName(const char *name)
     return name;
 #endif
 }
+
 $PackageWebCoreEnd

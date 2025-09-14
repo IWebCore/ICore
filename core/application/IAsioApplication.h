@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#if __has_include(<asio.hpp>)
+
 #include "IApplicationInterface.h"
 #include "asio/io_context.hpp"
 
@@ -21,3 +23,5 @@ private:
 using IApplication = IAsioApplication;
 
 $PackageWebCoreEnd
+
+#endif

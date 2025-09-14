@@ -3,6 +3,11 @@
 
 $PackageWebCoreBegin
 
+IRegistBaseTypeTaskFloatingPoint::IRegistBaseTypeTaskFloatingPoint()
+{
+
+}
+
 void IRegistBaseTypeTaskFloatingPoint::$task()
 {
     IBeanRegistBaseTypeUnit<float>::registType();

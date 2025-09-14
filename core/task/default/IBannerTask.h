@@ -8,8 +8,8 @@ $PackageWebCoreBegin
 class IBannerTask : public IStartupTaskInterface<IBannerTask>
 {
 private:
-    virtual void $task() final;
-    virtual double $order() const final;
+    virtual void $task() override final;
+    virtual double $order() const override final;
 };
 
 $PackageWebCoreEnd

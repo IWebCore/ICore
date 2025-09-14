@@ -41,22 +41,25 @@ std::enable_if_t<ITraitUtil::has_class_member_toJson_v<T>, IJson> toJson(const T
     return value.toJson();
 }
 
+
 // list vector
-#define PP_TO_JSON_SEQUENCE_CONTAINER(klass)                    \
-    template<typename T>                                        \
-    IJson toJson(const klass <T>& value){                       \
-        IJson result = IJson::array();                          \
-        for(const T& val :value){                               \
-            result.push_back(::IWebCore::IJsonUtil::toJson(val));                      \
-        }                                                       \
-        return result;                                          \
+#define PP_TO_JSON_SEQUENCE_CONTAINER(klass)                                            \
+    template<typename T>                                                                \
+    IJson toJson(const klass <T>& value){                                               \
+        IJson result = IJson::array();                                                  \
+        for(const T& val :value){                                                       \
+            result.push_back(IJsonUtil::toJson(val));                       \
+                }                                                                       \
+                return result;                                                          \
     }
+
     PP_TO_JSON_SEQUENCE_CONTAINER(std::list)
     PP_TO_JSON_SEQUENCE_CONTAINER(std::vector)
     PP_TO_JSON_SEQUENCE_CONTAINER(QList)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     PP_TO_JSON_SEQUENCE_CONTAINER(QVector)
+#endif
 #undef PP_TO_JSON_SEQUENCE_CONTAINER
-
 
 // map
 template<typename T, typename U>

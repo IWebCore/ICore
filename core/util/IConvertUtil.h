@@ -2,6 +2,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/base/IResult.h"
+#include <sstream>
 #if  __has_include(<charconv>)
     #include <charconv>
 #endif
@@ -19,8 +20,9 @@ namespace  IConvertUtil
     QString toUtcString(const QDateTime& dateTime);
 
 
+    // TODO: pre GCC11 should deal specially latter!!!
     // NOTE: 第二种方法对于 ulonglong 的处理不对，有溢出的问题
-#if  __has_include(<charconv>)
+#if __has_include(<charconv>)
     template <typename T>
     T stringToNumber(const std::string& str, bool& ok)
     {
@@ -28,12 +30,23 @@ namespace  IConvertUtil
             ok = false;
             return {};
         }
-
         T result{};
-        auto val = std::from_chars(str.data(), str.data()+str.length(), result);
-        if (val.ec != std::errc()) {
+        if constexpr (std::is_integral_v<T>){
+            auto val = std::from_chars(str.data(), str.data()+str.length(), result);
+            if (val.ec != std::errc()) {
+                ok = false;
+                return {};
+            }
+        }else if constexpr(std::is_floating_point_v<T>){
+            std::istringstream iss(str);
+            iss >> result;
+            if (iss.fail() || !iss.eof()) {
+                ok = false;
+                return {};
+            }
+        }else{
+            static_assert(std::is_arithmetic_v<T>, "T must be an arithmetic type");
             ok = false;
-            return {};
         }
         ok = true;
         return result;

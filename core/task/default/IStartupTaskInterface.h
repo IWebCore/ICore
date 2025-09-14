@@ -17,7 +17,6 @@ public:
 
 public:
     virtual double $order() const override;
-    virtual void $task() = 0;
 };
 
 template<typename T, bool enabled>

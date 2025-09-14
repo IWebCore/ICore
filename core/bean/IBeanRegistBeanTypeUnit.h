@@ -19,8 +19,11 @@ private:
 template<typename T>
 void IBeanRegistBeanTypeUnit<T>::registType()
 {
-    registBean();
-    IBeanRegistBaseTypeUnit<T>::registType();
+    static std::once_flag flag;
+    std::call_once(flag, [](){
+        registBean();
+        IBeanRegistBaseTypeUnit<T>::registType();
+    });
 }
 
 template<typename T>

@@ -1,9 +1,14 @@
-﻿#include "IRegistBaseTypeTask16bit.h"
+﻿#include "IRegistBaseTypeTaskShort.h"
 #include "core/bean/IBeanRegistBaseTypeUnit.h"
 
 $PackageWebCoreBegin
 
-void IRegistBaseTypeTask16bit::$task()
+IRegistBaseTypeTaskShort::IRegistBaseTypeTaskShort()
+{
+
+}
+
+void IRegistBaseTypeTaskShort::$task()
 {
     IBeanRegistBaseTypeUnit<short>::registType();
     IBeanRegistBaseTypeUnit<unsigned short>::registType();

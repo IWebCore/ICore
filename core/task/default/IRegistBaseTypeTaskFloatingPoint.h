@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 class IRegistBaseTypeTaskFloatingPoint : public ITaskInstantUnit<IRegistBaseTypeTaskFloatingPoint, true>
 {
 public:
-    IRegistBaseTypeTaskFloatingPoint() = default;
+    IRegistBaseTypeTaskFloatingPoint();
 
 public:
     virtual void $task() final;

@@ -1,9 +1,14 @@
-﻿#include "IRegistBaseTypeTask32bit.h"
+﻿#include "IRegistBaseTypeTaskInt.h"
 #include "core/bean/IBeanRegistBaseTypeUnit.h"
 
 $PackageWebCoreBegin
 
-void IRegistBaseTypeTask32bit::$task()
+IRegistBaseTypeTaskInt::IRegistBaseTypeTaskInt()
+{
+
+}
+
+void IRegistBaseTypeTaskInt::$task()
 {
     IBeanRegistBaseTypeUnit<int>::registType();
     IBeanRegistBaseTypeUnit<unsigned int>::registType();

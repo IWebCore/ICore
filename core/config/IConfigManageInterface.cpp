@@ -1,6 +1,7 @@
 ﻿#include "IConfigManageInterface.h"
 #include "core/abort/IAbortInterface.h"
 #include "core/config/IConfigAbort.h"
+#include <sstream>
 
 $PackageWebCoreBegin
 

@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IRegistBaseTypeTaskString : public ITaskInstantUnit<IRegistBaseTypeTaskString, true>
+class IRegistBaseTypeTaskInt : public ITaskInstantUnit<IRegistBaseTypeTaskInt, true>
 {
 public:
-    IRegistBaseTypeTaskString();
+    IRegistBaseTypeTaskInt();
 
 public:
     virtual void $task() final;

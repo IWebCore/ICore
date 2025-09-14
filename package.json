@@ -1,6 +1,6 @@
 {
     "name":"ICore",
-    "version":"1.0.0",
+    "version":"1.1.0",
     "author": "yuekeyuan",
     "summary":"core library for IWebCore",
     "license":"AGPL-3.0-only",
@@ -8,8 +8,10 @@
     "links":[
         "https://github.com/IWebCore/ICore"
     ],
+    "changelog":[
+        "make asio as unnessary dependency"
+    ],
     "dependencies": {
-        "asio": "*",
         "nlohmann.json": "*"
     },
     "isGlobal": true,

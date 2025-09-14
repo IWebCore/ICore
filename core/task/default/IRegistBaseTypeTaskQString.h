@@ -1,14 +1,14 @@
-﻿#pragma once
+#pragma once
 
 #include "core/util/IPackageUtil.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
 $PackageWebCoreBegin
 
-class IRegistBaseTypeTaskString : public ITaskInstantUnit<IRegistBaseTypeTaskString, true>
+class IRegistBaseTypeTaskQString : public ITaskInstantUnit<IRegistBaseTypeTaskQString, true>
 {
 public:
-    IRegistBaseTypeTaskString();
+    IRegistBaseTypeTaskQString();
 
 public:
     virtual void $task() final;

@@ -1,4 +1,6 @@
-﻿#include "IAsioTimer.h"
+﻿#if __has_include(<asio.hpp>)
+
+#include "IAsioTimer.h"
 
 #include "core/application/IAsioContext.h"
 
@@ -38,3 +40,5 @@ void IAsioTimer::startTimer()
 }
 
 $PackageWebCoreEnd
+
+#endif

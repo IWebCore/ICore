@@ -47,20 +47,6 @@ void IBeanRegistBaseTypeUnit<T>::registType()
     registIStringStdMap();
 }
 
-//template<typename T>
-//void IBeanRegistBaseTypeUnit<T>::registBean()
-//{
-//    auto ids = IMetaUtil::registMetaType<T>();
-//    for(auto id : ids){
-//        IBeanTypeManage::instance().registBeanId(id);
-//        IBeanTypeManage::instance().registBeanFromJsonFun(id,[](void* ptr, const IJson& json)->bool{
-//            return IJsonUtil::fromJson(*static_cast<T*>(ptr), json);
-//        });
-//        IBeanTypeManage::instance().registBeanToJsonFun(id, [](void* ptr)->IJson{
-//            return IJsonUtil::toJson(*static_cast<T*>(ptr));
-//        });
-//    }
-//}
 
 template<typename T>
 void IBeanRegistBaseTypeUnit<T>::registQList()
@@ -82,14 +68,14 @@ template<typename T>
 void IBeanRegistBaseTypeUnit<T>::registStdList()
 {
     auto name = "std::list<" + IMetaUtil::getTypeName<T>() + ">";
-    auto ids = IMetaUtil::registMetaType<std::list<T>>({name});
+    auto ids = IMetaUtil::registMetaType< std::list<T> >({name});
     for(auto id : ids){
         IBeanTypeManage::instance().registBeanId(id);
         IBeanTypeManage::instance().registBeanFromJsonFun(id,[](void* ptr, const IJson& json)->bool{
-            return IJsonUtil::fromJson(*static_cast<std::list<T>*>(ptr), json);
+            return IJsonUtil::fromJson(*static_cast< std::list<T>*>(ptr), json);
         });
         IBeanTypeManage::instance().registBeanToJsonFun(id, [](void* ptr)->IJson{
-            return IJsonUtil::toJson(*static_cast<std::list<T>*>(ptr));
+            return IJsonUtil::toJson(*static_cast< std::list<T>*>(ptr));
         });
     }
 }

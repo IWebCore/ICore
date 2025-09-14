@@ -1,5 +1,8 @@
-﻿#include "IAsioApplication.h"
+﻿#if __has_include(<asio.hpp>)
+
+#include "IAsioApplication.h"
 #include "core/application/IAsioContext.h"
+#include "core/application/IApplicationManage.h"
 #include "core/config/IContextImport.h"
 
 #include <iostream>
@@ -55,6 +58,8 @@ IAsioApplication::IAsioApplication(int argc, char **argv)
     : IApplicationInterface(argc, argv)
 {
     static QCoreApplication app(argc, argv);
+    IApplicationManage::instance().registerApplicationWare(this);
+
     Q_UNUSED(app)
 
     init();
@@ -79,3 +84,5 @@ int IAsioApplication::run()
 }
 
 $PackageWebCoreEnd
+
+#endif

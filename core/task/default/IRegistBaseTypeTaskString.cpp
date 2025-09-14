@@ -3,13 +3,17 @@
 
 $PackageWebCoreBegin
 
+IRegistBaseTypeTaskString::IRegistBaseTypeTaskString()
+{
+
+}
+
 void IRegistBaseTypeTaskString::$task()
 {
 //    IBeanRegistBaseTypeUnit<IStringView>::registType();
-    IBeanRegistBaseTypeUnit<IJson>::registType();
+
     IBeanRegistBaseTypeUnit<IString>::registType();
     IBeanRegistBaseTypeUnit<std::string>::registType();
-    IBeanRegistBaseTypeUnit<QString>::registType();
 }
 
 $PackageWebCoreEnd

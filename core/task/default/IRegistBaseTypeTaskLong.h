@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IRegistBaseTypeTask64bit : public ITaskInstantUnit<IRegistBaseTypeTask64bit, true>
+class IRegistBaseTypeTaskLong : public ITaskInstantUnit<IRegistBaseTypeTaskLong, true>
 {
 public:
-    IRegistBaseTypeTask64bit() = default;
+    IRegistBaseTypeTaskLong();
 
 public:
     virtual void $task() final;

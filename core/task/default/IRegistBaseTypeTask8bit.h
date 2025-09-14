@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 class IRegistBaseTypeTask8bit : public ITaskInstantUnit<IRegistBaseTypeTask8bit, false>
 {
 public:
-    IRegistBaseTypeTask8bit() = default;
+    IRegistBaseTypeTask8bit();
 
 public:
     virtual void $task() final;

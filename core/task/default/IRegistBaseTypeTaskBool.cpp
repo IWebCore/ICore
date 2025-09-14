@@ -3,6 +3,11 @@
 
 $PackageWebCoreBegin
 
+IRegistBaseTypeTaskBool::IRegistBaseTypeTaskBool()
+{
+
+}
+
 void IRegistBaseTypeTaskBool::$task()
 {
     IBeanRegistBaseTypeUnit<bool>::registType();

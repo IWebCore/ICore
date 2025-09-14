@@ -29,6 +29,35 @@ namespace IMetaUtil
     template<typename T>
     const QString& getTypeName();
 
+    const char* typeName(int id);
+
+    inline auto typeId(const QVariant& id)
+    {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+        return id.type();
+#else
+        return id.typeId();
+#endif
+    }
+
+    inline auto typeId (const QMetaProperty& prop)
+    {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+        return prop.type();
+#else
+        return prop.typeId();
+#endif
+    }
+
+    inline auto typeId(const QByteArray& typeName)
+    {
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+        return QMetaType::type(typeName);
+#else
+        return QMetaType::fromName(typeName).id();
+#endif
+    }
+
     QString demangleName(const char*);
 }
 

@@ -86,28 +86,35 @@ std::enable_if_t<std::is_arithmetic_v<T>, bool>
 fromJson(T& data, const IJson& json) {
     if (!json.is_number() && !json.is_string()) return false;
 
-    if(json.is_string()){
+    if(json.is_string()){   // TODO: check this whether is proper.
         bool ok;
         std::string str = json.get<std::string>();
         data = IConvertUtil::stringToNumber<T>(str, ok);
         return ok;
     }
 
-    if constexpr (std::is_integral_v<T>) {
-        if (json.is_number_integer() || json.is_number_float()) {
+    if constexpr (std::is_floating_point_v<T>) {
+        if (json.is_number_float() || json.is_number_integer()) {
             auto value = json.get<double>(); // 先以浮点数形式获取值
-            if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
+            if (value >= -std::numeric_limits<T>::max() && value <= std::numeric_limits<T>::max()) {
                 data = static_cast<T>(value); // 范围内则安全转换
                 return true;
             }
         }
     }
-    // 判断是否为浮点型
-    else if constexpr (std::is_floating_point_v<T>) {
-        if (json.is_number_float() || json.is_number_integer()) {
-            auto value = json.get<double>(); // 先以浮点数形式获取值
-            if (value >= -std::numeric_limits<T>::max() && value <= std::numeric_limits<T>::max()) {
-                data = static_cast<T>(value); // 范围内则安全转换
+    else if constexpr (std::is_integral_v<T> && std::is_signed_v<T>) {
+        if (json.is_number_integer() || json.is_number_float()) {
+            auto value = json.get<std::int64_t>();
+            if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
+                data = static_cast<T>(value);
+                return true;
+            }
+        }
+    }else if constexpr (std::is_integral_v<T> && std::is_unsigned_v<T>){
+        if(json.is_number_unsigned()){
+            auto value = json.get<std::uint64_t>();
+            if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
+                data = static_cast<T>(value);
                 return true;
             }
         }
@@ -120,7 +127,9 @@ template<typename T>
 std::enable_if_t<ITraitUtil::has_class_member_loadJson_v<T>, bool>
 fromJson(T& data, const IJson& json)
 {
-    if(json.is_discarded() || json.is_null()) return false;
+    if(json.is_discarded() || json.is_null()) {
+        return false;
+    }
     return data.loadJson(json);
 }
 
@@ -138,7 +147,9 @@ fromJson(T& data, const IJson& json)
         return true;                                                            \
     }
     PP_FROM_JSON_SEQUENCE_CONTAINER(QList)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     PP_FROM_JSON_SEQUENCE_CONTAINER(QVector)
+#endif
     PP_FROM_JSON_SEQUENCE_CONTAINER(std::list)
     PP_FROM_JSON_SEQUENCE_CONTAINER(std::vector)
 #undef PP_FROM_JSON_SEQUENCE_CONTAINER

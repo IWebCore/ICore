@@ -42,7 +42,7 @@ public:
     bool isLoadedValue() const;
 
 private:
-    const QString& path();
+    const std::string& path();
 
 protected:
     virtual IConfigManageInterface& getConfigManage() const = 0;
@@ -56,15 +56,28 @@ protected:
     mutable ValueMark m_valueMark{};
 };
 
+
 template<typename T>
 IConfigImportInterface<T>::IConfigImportInterface(const QString &path)
-    : IConfigManageInterface(path.toStdString())
+    : IConfigImportInterface(path.toStdString())
 {
 }
 
 template<typename T>
 IConfigImportInterface<T>::IConfigImportInterface(const char *path)
-    : IConfigManageInterface(std::string(path))
+    : IConfigImportInterface<T>(std::string(path))
+{
+}
+
+template<typename T>
+IConfigImportInterface<T>::IConfigImportInterface(const QString &path, T value)
+    : IConfigImportInterface(path.toStdString(), std::forward<T>(value))
+{
+}
+
+template<typename T>
+IConfigImportInterface<T>::IConfigImportInterface(const char *path, T value)
+    : IConfigImportInterface(std::string(path), std::forward<T>(value))
 {
 }
 
@@ -78,18 +91,6 @@ IConfigImportInterface<T>::IConfigImportInterface(std::string path)
     if (m_path.empty() || m_path[0] != '/') {
         m_path.insert(m_path.begin(), '/');
     }
-}
-
-template<typename T>
-IConfigImportInterface<T>::IConfigImportInterface(const QString &path, T value)
-    : IConfigManageInterface(path.toStdString(), std::forward<T>(value))
-{
-}
-
-template<typename T>
-IConfigImportInterface<T>::IConfigImportInterface(const char *path, T value)
-    : IConfigManageInterface(std::string(path), std::forward<T>(value))
-{
 }
 
 template<typename T>
@@ -142,9 +143,9 @@ bool IConfigImportInterface<T>::isLoadedValue() const
 }
 
 template<typename T>
-const QString &IConfigImportInterface<T>::path()
+const std::string &IConfigImportInterface<T>::path()
 {
-    return QString::fromStdString(m_path);
+    return m_path;
 }
 
 template<typename T>

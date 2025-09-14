@@ -23,6 +23,8 @@ HEADERS += \
     $$PWD/core/application/IApplication.h \
     $$PWD/core/application/IApplicationAnnomacro.h \
     $$PWD/core/application/IApplicationInterface.h \
+    $$PWD/core/application/IApplicationManage.h \
+    $$PWD/core/application/IApplicationWare.h \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioContext.h \
     $$PWD/core/application/default/IAsioTimer.h \
@@ -66,12 +68,16 @@ HEADERS += \
     $$PWD/core/task/default/IInitializationTaskCatagory.h \
     $$PWD/core/task/default/IInitializationTaskInterface.h \
     $$PWD/core/task/default/IRegistBaseTypeTask.h \
-    $$PWD/core/task/default/IRegistBaseTypeTask16bit.h \
-    $$PWD/core/task/default/IRegistBaseTypeTask32bit.h \
-    $$PWD/core/task/default/IRegistBaseTypeTask64bit.h \
     $$PWD/core/task/default/IRegistBaseTypeTask8bit.h \
+    $$PWD/core/task/default/IRegistBaseTypeTask8bitChar.h \
     $$PWD/core/task/default/IRegistBaseTypeTaskBool.h \
     $$PWD/core/task/default/IRegistBaseTypeTaskFloatingPoint.h \
+    $$PWD/core/task/default/IRegistBaseTypeTaskInt.h \
+    $$PWD/core/task/default/IRegistBaseTypeTaskJson.h \
+    $$PWD/core/task/default/IRegistBaseTypeTaskLong.h \
+    $$PWD/core/task/default/IRegistBaseTypeTaskLongLong.h \
+    $$PWD/core/task/default/IRegistBaseTypeTaskQString.h \
+    $$PWD/core/task/default/IRegistBaseTypeTaskShort.h \
     $$PWD/core/task/default/IRegisterBaseTypeTaskString.h \
     $$PWD/core/task/default/IStartupTaskCatagory.h \
     $$PWD/core/task/default/IStartupTaskInterface.h \
@@ -108,10 +114,13 @@ HEADERS += \
     $$PWD/core/util/ITicTacUtil.h \
     $$PWD/core/util/ITraitUtil.h \
     $$PWD/core/util/detail/IJsonUtil_fromJson.h \
-    $$PWD/core/util/detail/IJsonUtil_toJson.h
+    $$PWD/core/util/detail/IJsonUtil_toJson.h   \
+    $$PWD/core/util/IHeaderUtil.h
 
 SOURCES += \
     $$PWD/core/abort/IGlobalAbort.cpp \
+    $$PWD/core/application/IApplicationManage.cpp \
+    $$PWD/core/application/IApplicationWare.cpp \
     $$PWD/core/application/IAsioApplication.cpp \
     $$PWD/core/application/IAsioContext.cpp \
     $$PWD/core/application/default/IAsioTimer.cpp \
@@ -120,8 +129,8 @@ SOURCES += \
     $$PWD/core/base/IString.cpp \
     $$PWD/core/base/IStringView.cpp \
     $$PWD/core/base/IStringViewStash.cpp \
-    $$PWD/core/base/IStringView_value.cpp \
     $$PWD/core/base/IString_value.cpp \
+    $$PWD/core/bean/IBeanInterface.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IConfigManageInterface.cpp \
     $$PWD/core/config/IConfigTaskCatagory.cpp \
@@ -136,12 +145,16 @@ SOURCES += \
     $$PWD/core/task/default/IEndupTaskCatagory.cpp \
     $$PWD/core/task/default/IInitializationTaskCatagory.cpp \
     $$PWD/core/task/default/IRegistBaseTypeTask.cpp \
-    $$PWD/core/task/default/IRegistBaseTypeTask16bit.cpp \
-    $$PWD/core/task/default/IRegistBaseTypeTask32bit.cpp \
-    $$PWD/core/task/default/IRegistBaseTypeTask64bit.cpp \
     $$PWD/core/task/default/IRegistBaseTypeTask8bit.cpp \
+    $$PWD/core/task/default/IRegistBaseTypeTask8bitChar.cpp \
     $$PWD/core/task/default/IRegistBaseTypeTaskBool.cpp \
     $$PWD/core/task/default/IRegistBaseTypeTaskFloatingPoint.cpp \
+    $$PWD/core/task/default/IRegistBaseTypeTaskInt.cpp \
+    $$PWD/core/task/default/IRegistBaseTypeTaskJson.cpp \
+    $$PWD/core/task/default/IRegistBaseTypeTaskLong.cpp \
+    $$PWD/core/task/default/IRegistBaseTypeTaskLongLong.cpp \
+    $$PWD/core/task/default/IRegistBaseTypeTaskQString.cpp \
+    $$PWD/core/task/default/IRegistBaseTypeTaskShort.cpp \
     $$PWD/core/task/default/IRegistBaseTypeTaskString.cpp \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/test/ITestCatagory.cpp \
@@ -155,7 +168,6 @@ SOURCES += \
     $$PWD/core/util/IConvertUtil.cpp \
     $$PWD/core/util/IFileUtil.cpp \
     $$PWD/core/util/IMetaUtil.cpp \
-    $$PWD/core/util/IPreProcessorUtil.cpp \
     $$PWD/core/util/IStringUtil.cpp \
     $$PWD/core/util/ITicTacUtil.cpp
 

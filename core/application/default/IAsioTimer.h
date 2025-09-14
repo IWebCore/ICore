@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#if __has_include(<asio.hpp>)
+
 #include "core/util/IHeaderUtil.h"
 
 $PackageWebCoreBegin
@@ -25,3 +27,5 @@ private:
 };
 
 $PackageWebCoreEnd
+
+#endif

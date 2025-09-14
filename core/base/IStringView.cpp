@@ -1,5 +1,4 @@
 ﻿#include "IStringView.h"
-#include "asio.hpp"
 #include "core/base/IString.h"
 
 namespace std {

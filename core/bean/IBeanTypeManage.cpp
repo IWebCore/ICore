@@ -24,7 +24,7 @@ IBeanTypeManage::FromJsonFun IBeanTypeManage::getBeanFromJsonFun(int id)
         return m_beanFromJsonFunMap[id];
     }
 
-    QString tip = QString("type id:").append(QString::number(id)).append(" typename").append(QMetaType::typeName(id));
+    QString tip = QString("type id:").append(QString::number(id)).append(" typename").append(IMetaUtil::typeName(id));
     IBeanAbort::abortTypeNotRegisteredForJsonConvertion(tip, $ISourceLocation);
     return nullptr;
 }
@@ -34,8 +34,7 @@ IBeanTypeManage::ToJsonFun IBeanTypeManage::getBeanToJsonFun(int id)
     if(m_beanToJsonFunMap.contains(id)){
         return m_beanToJsonFunMap[id];
     }
-
-    QString tip = QString("type id:").append(QString::number(id)).append(" typename").append(QMetaType::typeName(id));
+    QString tip = QString("type id:").append(QString::number(id)).append(" typename").append(IMetaUtil::typeName(id));
     IBeanAbort::abortTypeNotRegisteredForJsonConvertion(tip, $ISourceLocation);
     return nullptr;
 }

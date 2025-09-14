@@ -2,13 +2,14 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/task/ITaskManage.h"
+#include "core/application/IApplicationWare.h"
 #include "core/application/IAsioContext.h"
-//#include <filesystem>
+
 
 $PackageWebCoreBegin
 
 template<typename T>
-class IApplicationInterface
+class IApplicationInterface : public IApplicationWare
 {
     friend class IAsioApplicationTimerTask;
 public:
@@ -16,11 +17,13 @@ public:
 
 public:
     static T& instance();
-    QString applicationPath();
-    QString workingDirectory();
-    QString appName();
-    const QStringList& arguments();
-    static int64_t time();
+
+public:
+    virtual QString applicationName() const final;
+    virtual QString applicationPath() const final;
+    virtual QString workingDirectory() const final;
+    virtual QStringList arguments() const final;
+    virtual std::int64_t time() const final;
 
 public:
     virtual int run() = 0;
@@ -57,34 +60,32 @@ T& IApplicationInterface<T>::instance()
 }
 
 template<typename T>
-QString IApplicationInterface<T>::applicationPath()
-{
-    return QFileInfo(m_arguments.first()).absolutePath();
-}
-
-template<typename T>
-QString IApplicationInterface<T>::workingDirectory()
-{
-    return QDir::currentPath();
-//    std::filesystem::path cwd = std::filesystem::current_path();
-//    return QString::fromStdString(cwd.string());
-}
-
-template<typename T>
-QString IApplicationInterface<T>::appName()
+QString IApplicationInterface<T>::applicationName() const
 {
     QString path = m_arguments.first();
     return path.replace("\\", "/").split("/").last();
 }
 
 template<typename T>
-const QStringList& IApplicationInterface<T>::arguments()
+QString IApplicationInterface<T>::applicationPath() const
+{
+    return QFileInfo(m_arguments.first()).absolutePath();
+}
+
+template<typename T>
+QString IApplicationInterface<T>::workingDirectory() const
+{
+    return QDir::currentPath();
+}
+
+template<typename T>
+QStringList IApplicationInterface<T>::arguments() const
 {
     return instance().m_arguments;
 }
 
 template<typename T>
-int64_t IApplicationInterface<T>::time()
+int64_t IApplicationInterface<T>::time() const
 {
     return instance().m_time ++;
 }
