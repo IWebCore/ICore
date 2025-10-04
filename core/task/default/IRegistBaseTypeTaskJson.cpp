@@ -1,5 +1,5 @@
 #include "IRegistBaseTypeTaskJson.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,7 +10,7 @@ IRegistBaseTypeTaskJson::IRegistBaseTypeTaskJson()
 
 void IRegistBaseTypeTaskJson::$task()
 {
-    IBeanRegistBaseTypeUnit<IJson>::registType();
+    IRegisterMetaTypeUnit<IJson>::registType();
 }
 
 $PackageWebCoreEnd

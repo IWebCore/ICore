@@ -1,5 +1,5 @@
 #include "IRegistBaseTypeTaskQString.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,7 +10,7 @@ IRegistBaseTypeTaskQString::IRegistBaseTypeTaskQString()
 
 void IRegistBaseTypeTaskQString::$task()
 {
-    IBeanRegistBaseTypeUnit<QString>::registType();
+    IRegisterMetaTypeUnit<QString>::registType();
 }
 
 $PackageWebCoreEnd

@@ -1,5 +1,5 @@
 ﻿#include "IRegisterBaseTypeTaskString.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,10 +10,10 @@ IRegistBaseTypeTaskString::IRegistBaseTypeTaskString()
 
 void IRegistBaseTypeTaskString::$task()
 {
-//    IBeanRegistBaseTypeUnit<IStringView>::registType();
+//    IRegisterMetaTypeUnit<IStringView>::registType();
 
-    IBeanRegistBaseTypeUnit<IString>::registType();
-    IBeanRegistBaseTypeUnit<std::string>::registType();
+    IRegisterMetaTypeUnit<IString>::registType();
+    IRegisterMetaTypeUnit<std::string>::registType();
 }
 
 $PackageWebCoreEnd

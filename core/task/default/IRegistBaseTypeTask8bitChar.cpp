@@ -1,5 +1,5 @@
 #include "IRegistBaseTypeTask8bitChar.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,7 +10,7 @@ IRegistBaseTypeTask8bitChar::IRegistBaseTypeTask8bitChar()
 
 void IRegistBaseTypeTask8bitChar::$task()
 {
-    IBeanRegistBaseTypeUnit<char>::registType();
+    IRegisterMetaTypeUnit<char>::registType();
 }
 
 $PackageWebCoreEnd

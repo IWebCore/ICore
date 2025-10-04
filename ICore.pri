@@ -1,15 +1,7 @@
 INCLUDEPATH += $$PWD
 
-msvc {
-    QMAKE_CXXFLAGS += /MP
-    debug {
-        QMAKE_CXXFLAGS += /bigobj
-    }
-
-    # TODO: test why mingw not work!!!
-    CONFIG += precompile_header
-    PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
-}
+CONFIG += precompile_header
+PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
 
 win32 {
     LIBS += -lws2_32
@@ -38,8 +30,6 @@ HEADERS += \
     $$PWD/core/bean/IBeanAbort.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
-    $$PWD/core/bean/IBeanRegistBaseTypeUnit.h \
-    $$PWD/core/bean/IBeanRegistBeanTypeUnit.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/config/IConfigAbort.h \
     $$PWD/core/config/IConfigAnnomacro.h \

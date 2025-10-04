@@ -80,18 +80,12 @@ inline bool fromJson(QStringList& value, const IJson& json)
     return true;
 }
 
-// numbers and strings
+// numbers
 template <typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
-fromJson(T& data, const IJson& json) {
-    if (!json.is_number() && !json.is_string()) return false;
-
-    if(json.is_string()){   // TODO: check this whether is proper.
-        bool ok;
-        std::string str = json.get<std::string>();
-        data = IConvertUtil::stringToNumber<T>(str, ok);
-        return ok;
-    }
+fromJson(T& data, const IJson& json)
+{
+    if (!json.is_number()) return false;
 
     if constexpr (std::is_floating_point_v<T>) {
         if (json.is_number_float() || json.is_number_integer()) {
@@ -103,20 +97,16 @@ fromJson(T& data, const IJson& json) {
         }
     }
     else if constexpr (std::is_integral_v<T> && std::is_signed_v<T>) {
-        if (json.is_number_integer() || json.is_number_float()) {
-            auto value = json.get<std::int64_t>();
-            if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
-                data = static_cast<T>(value);
-                return true;
-            }
+        auto value = json.get<std::int64_t>();
+        if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
+            data = static_cast<T>(value);
+            return true;
         }
     }else if constexpr (std::is_integral_v<T> && std::is_unsigned_v<T>){
-        if(json.is_number_unsigned()){
-            auto value = json.get<std::uint64_t>();
-            if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
-                data = static_cast<T>(value);
-                return true;
-            }
+        auto value = json.get<std::uint64_t>();
+        if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
+            data = static_cast<T>(value);
+            return true;
         }
     }
     return false;

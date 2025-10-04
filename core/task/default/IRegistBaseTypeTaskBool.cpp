@@ -1,5 +1,5 @@
 ﻿#include "IRegistBaseTypeTaskBool.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,7 +10,7 @@ IRegistBaseTypeTaskBool::IRegistBaseTypeTaskBool()
 
 void IRegistBaseTypeTaskBool::$task()
 {
-    IBeanRegistBaseTypeUnit<bool>::registType();
+    IRegisterMetaTypeUnit<bool>::registType();
 }
 
 $PackageWebCoreEnd

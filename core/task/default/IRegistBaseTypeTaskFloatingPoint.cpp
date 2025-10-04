@@ -1,5 +1,5 @@
 ﻿#include "IRegistBaseTypeTaskFloatingPoint.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,8 +10,8 @@ IRegistBaseTypeTaskFloatingPoint::IRegistBaseTypeTaskFloatingPoint()
 
 void IRegistBaseTypeTaskFloatingPoint::$task()
 {
-    IBeanRegistBaseTypeUnit<float>::registType();
-    IBeanRegistBaseTypeUnit<double>::registType();
+    IRegisterMetaTypeUnit<float>::registType();
+    IRegisterMetaTypeUnit<double>::registType();
 }
 
 $PackageWebCoreEnd

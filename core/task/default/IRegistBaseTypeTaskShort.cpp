@@ -1,5 +1,5 @@
 ﻿#include "IRegistBaseTypeTaskShort.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,8 +10,8 @@ IRegistBaseTypeTaskShort::IRegistBaseTypeTaskShort()
 
 void IRegistBaseTypeTaskShort::$task()
 {
-    IBeanRegistBaseTypeUnit<short>::registType();
-    IBeanRegistBaseTypeUnit<unsigned short>::registType();
+    IRegisterMetaTypeUnit<short>::registType();
+    IRegisterMetaTypeUnit<unsigned short>::registType();
 }
 
 $PackageWebCoreEnd

@@ -5,87 +5,15 @@ $PackageWebCoreBegin
 namespace detail
 {
     QMetaMethod getMetaMethod(const QMetaObject& meta, const QString &name);
-
-    QVector<std::string> getFieldNames(const QMetaObject &meta);
-
-    QStringList getRequiredFields(const QMetaObject& meta)
-    {
-        QStringList fields;
-        const QString prefix = "$beanfieldrequired_";
-        const auto& infos = IMetaUtil::getMetaClassInfoMap(meta);
-        for(const auto& info : infos.keys()){
-            if(info.startsWith(prefix)){
-                fields.append(infos[info]);
-            }
-        }
-        return fields;
-    }
-
-    std::map<std::string, QMetaMethod> getRequiredMethodMap(const QMetaObject &meta)
-    {
-        std::map<std::string, QMetaMethod> map;
-        const auto fields = detail::getRequiredFields(meta);
-        const auto& props = IMetaUtil::getMetaProperties(meta);
-        for(const auto& prop : props){
-            if(fields.contains(prop.name())){
-                const auto& method = detail::getMetaMethod(meta, "$" + QString(prop.name()) + "_fromJsonValue");
-                if(!method.isValid()){
-                    IBeanAbort::abortLoadJsonMethodNotExist(prop.name(), $ISourceLocation);
-                }
-                map[prop.name()] = method;
-            }
-        }
-        return map;
-    }
-
-    std::map<std::string, QMetaMethod> getOptionalMethodMap(const QMetaObject &meta)
-    {
-        std::map<std::string, QMetaMethod> map;
-        const auto fields = detail::getRequiredFields(meta);
-        const auto& props = IMetaUtil::getMetaProperties(meta);
-        for(const auto& prop : props){
-            if(!fields.contains(prop.name())){
-                const auto& method = detail::getMetaMethod(meta, "$" + QString(prop.name()) + "_fromJsonValue");
-                if(!method.isValid()){
-                    IBeanAbort::abortLoadJsonMethodNotExist(prop.name(), $ISourceLocation);
-                }
-                map[prop.name()] = method;
-            }
-        }
-        return map;
-    }
-
-    QMetaMethod getJsonValidatorMethod(const QMetaObject &meta)
-    {
-        const auto key = "$beanjsonvalidator__";
-        auto infos = IMetaUtil::getMetaClassInfoMap(meta);
-        if(infos.contains(key)){
-            const QMetaMethod& method = detail::getMetaMethod(meta, infos[key]);
-            if(!method.isValid()){
-                return method;
-            }
-
-            auto invalidCondition =
-                method.returnType() != QMetaType::Bool ||
-                method.parameterCount() != 1 ||
-                method.parameterType(0) != qMetaTypeId<IJson>();
-            if(invalidCondition){
-                IBeanAbort::abortJsonValidatorSignatureInvalid($ISourceLocation);
-            }
-
-            return method;
-        }
-        return {};
-    }
-
+    QStringList getRequiredFields(const QMetaObject& meta);
 }
 
-std::map<std::string, QMetaMethod> detail::getMethodPair(const QMetaObject &meta)
+std::map<std::string, QMetaMethod> detail::getMethodMap(const QMetaObject &meta)
 {
     std::map<std::string, QMetaMethod> methodPair;
     auto props = IMetaUtil::getMetaProperties(meta);
     for(const auto& prop : props){
-        const auto& method = detail::getMetaMethod(meta, "$" + QString(prop.name()) + "_toJsonValue");
+        auto method = detail::getMetaMethod(meta, "$" + QString(prop.name()) + "_toJsonValue");
         if(!method.isValid()){
             IBeanAbort::abortToJsonMethodNotExist(prop.name(), $ISourceLocation);
         }
@@ -94,11 +22,10 @@ std::map<std::string, QMetaMethod> detail::getMethodPair(const QMetaObject &meta
     return methodPair;
 }
 
-
-IJson detail::convertData(const void * handle, const std::map<std::string, QMetaMethod> &methodPair)
+IJson detail::processToJson(const void * handle, const std::map<std::string, QMetaMethod> &methodMap)
 {
     IJson obj = IJson::object();
-    for(const auto& [key, method] : methodPair){
+    for(const auto& [key, method] : methodMap){
         IJson json;
         method.invokeOnGadget(const_cast<void*>(handle), Q_RETURN_ARG(IJson, json));
         obj[key] = std::move(json);
@@ -106,17 +33,14 @@ IJson detail::convertData(const void * handle, const std::map<std::string, QMeta
     return obj;
 }
 
-
-bool processLoadJson(const void *handle,
+bool detail::processLoadJson(const void* handle,
                      const IJson &value,
-                     const IBeanTrait &beanTrait,
+                     const IBeanTrait& beanTrait,
                      const std::map<std::string, QMetaMethod>& required,
                      const std::map<std::string, QMetaMethod>& optional,
-                     const QVector<std::string>& allFields,
-                     const QMetaMethod &validator)
+                     const QVector<std::string>& fieldNames,
+                     const QMetaMethod& validator)
 {
-
-
     if(!value.is_object()) {
         return false;
     }
@@ -152,7 +76,7 @@ bool processLoadJson(const void *handle,
 
     if(beanTrait == IBeanTrait::Full){
         for(const auto&val : value.items()){
-            if(!allFields.contains(val.key())){
+            if(!fieldNames.contains(val.key())){
                 return false;
             }
         }
@@ -160,7 +84,6 @@ bool processLoadJson(const void *handle,
 
     return true;
 }
-// below
 
 QMetaMethod detail::getMetaMethod(const QMetaObject& meta, const QString &name)
 {
@@ -171,7 +94,6 @@ QMetaMethod detail::getMetaMethod(const QMetaObject& meta, const QString &name)
         }
     }
 
-    // TODO: qFatal here
     return {};
 }
 
@@ -183,6 +105,76 @@ QVector<std::string> detail::getFieldNames(const QMetaObject &meta)
         fields.append(prop.name());
     }
     return fields;
+}
+
+QStringList detail::getRequiredFields(const QMetaObject& meta)
+{
+    QStringList fields;
+    const QString prefix = "$beanfieldrequired_";
+    const auto& infos = IMetaUtil::getMetaClassInfoMap(meta);
+    for(const auto& info : infos.keys()){
+        if(info.startsWith(prefix)){
+            fields.append(infos[info]);
+        }
+    }
+    return fields;
+}
+
+std::map<std::string, QMetaMethod> detail::getRequiredMethodMap(const QMetaObject &meta)
+{
+    std::map<std::string, QMetaMethod> map;
+    const auto fields = detail::getRequiredFields(meta);
+    const auto& props = IMetaUtil::getMetaProperties(meta);
+    for(const auto& prop : props){
+        if(fields.contains(prop.name())){
+            auto method = detail::getMetaMethod(meta, "$" + QString(prop.name()) + "_fromJsonValue");
+            if(!method.isValid()){
+                IBeanAbort::abortLoadJsonMethodNotExist(prop.name(), $ISourceLocation);
+            }
+            map[prop.name()] = method;
+        }
+    }
+    return map;
+}
+
+std::map<std::string, QMetaMethod> detail::getOptionalMethodMap(const QMetaObject &meta)
+{
+    std::map<std::string, QMetaMethod> map;
+    const auto fields = detail::getRequiredFields(meta);
+    const auto& props = IMetaUtil::getMetaProperties(meta);
+    for(const auto& prop : props){
+        if(!fields.contains(prop.name())){
+            auto method = detail::getMetaMethod(meta, "$" + QString(prop.name()) + "_fromJsonValue");
+            if(!method.isValid()){
+                IBeanAbort::abortLoadJsonMethodNotExist(prop.name(), $ISourceLocation);
+            }
+            map[prop.name()] = method;
+        }
+    }
+    return map;
+}
+
+QMetaMethod detail::getJsonValidatorMethod(const QMetaObject &meta)
+{
+    const auto key = "$beanjsonvalidator__";
+    auto infos = IMetaUtil::getMetaClassInfoMap(meta);
+    if(infos.contains(key)){
+        auto method = detail::getMetaMethod(meta, infos[key]);
+        if(!method.isValid()){
+            return method;
+        }
+
+        auto invalidCondition =
+            method.returnType() != QMetaType::Bool ||
+            method.parameterCount() != 1 ||
+            method.parameterType(0) != qMetaTypeId<IJson>();
+        if(invalidCondition){
+            IBeanAbort::abortJsonValidatorSignatureInvalid($ISourceLocation);
+        }
+
+        return method;
+    }
+    return {};
 }
 
 $PackageWebCoreEnd

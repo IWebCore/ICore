@@ -1,5 +1,5 @@
 #include "IRegistBaseTypeTaskLongLong.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,8 +10,8 @@ IRegistBaseTypeTaskLongLong::IRegistBaseTypeTaskLongLong()
 
 void IRegistBaseTypeTaskLongLong::$task()
 {
-    IBeanRegistBaseTypeUnit<long long>::registType();
-    IBeanRegistBaseTypeUnit<unsigned long long>::registType();
+    IRegisterMetaTypeUnit<long long>::registType();
+    IRegisterMetaTypeUnit<unsigned long long>::registType();
 }
 
 $PackageWebCoreEnd

@@ -57,7 +57,7 @@ void ITaskCatagory::printTaskInfo() const
                                << QString::fromStdString(node->$name());
         }
     }
-    qDebug() << Qt::endl;
+    qDebug() << "\n";
 }
 
 $PackageWebCoreEnd

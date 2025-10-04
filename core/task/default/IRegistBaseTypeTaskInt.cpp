@@ -1,5 +1,5 @@
 ﻿#include "IRegistBaseTypeTaskInt.h"
-#include "core/bean/IBeanRegistBaseTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -10,8 +10,8 @@ IRegistBaseTypeTaskInt::IRegistBaseTypeTaskInt()
 
 void IRegistBaseTypeTaskInt::$task()
 {
-    IBeanRegistBaseTypeUnit<int>::registType();
-    IBeanRegistBaseTypeUnit<unsigned int>::registType();
+    IRegisterMetaTypeUnit<int>::registType();
+    IRegisterMetaTypeUnit<unsigned int>::registType();
 }
 
 $PackageWebCoreEnd
