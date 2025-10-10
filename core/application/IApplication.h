@@ -1,11 +1,22 @@
 ﻿#pragma once
 
-#include "core/task/ITaskManage.h"
-#include "IApplicationManage.h"
+#include "core/util/IHeaderUtil.h"
 #include "IApplicationAnnomacro.h"
 
-#if __has_include(<asio.hpp>)
-    #include "IAsioApplication.h"
-#else
-    using IApplication = QCoreApplication;
-#endif
+$PackageWebCoreBegin
+
+class IApplicationWare;
+extern IApplicationWare* iApp;
+
+class IApplication
+{
+public:
+    IApplication(int argc, char* argv[], const QString& type = "asio");
+    IApplication(int argc, const char** argv, const QString& type = "asio");
+    ~IApplication();
+
+public:
+    int exec();
+};
+
+$PackageWebCoreEnd

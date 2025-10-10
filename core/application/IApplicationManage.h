@@ -7,29 +7,19 @@
 $PackageWebCoreBegin
 
 class IApplicationWare;
+extern IApplicationWare* iApp;
+
 class IApplicationManage : public ISoloUnit<IApplicationManage>
 {
 public:
-    using Task = std::function<void()>;
+    using AppFun = std::function<void(int, const char**)>;
 
 public:
-    IApplicationManage();
-
-public:
-    QString applicationName() const;
-    QString applicationPath() const;
-    QString workingDirectory() const;
-    QStringList arguments() const;
-    std::int64_t time() const;
-
-    IHandle startTimer(std::chrono::milliseconds duration, Task);
-    void stopTimer(IHandle id);
-
-public:
-    void registerApplicationWare(IApplicationWare* ware);
+    void registerAppFuns(const QString& name, AppFun);
+    AppFun getAppFunction(const QString&);
 
 private:
-    IApplicationWare* m_applicationWare{};
+    QMap<QString, AppFun> m_appFuns;
 };
 
 $PackageWebCoreEnd
