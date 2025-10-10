@@ -23,9 +23,9 @@ QString IAsioApplication::applicationType() const
     return "asio";
 }
 
-void IAsioApplication::invoke(int argc, const char ** argv)
+IApplicationWare* IAsioApplication::invoke(int argc, const char ** argv)
 {
-
+    return &ISolo<IAsioApplication>();
 }
 
 

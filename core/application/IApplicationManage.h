@@ -7,12 +7,10 @@
 $PackageWebCoreBegin
 
 class IApplicationWare;
-extern IApplicationWare* iApp;
-
 class IApplicationManage : public ISoloUnit<IApplicationManage>
 {
 public:
-    using AppFun = std::function<void(int, const char**)>;
+    using AppFun = std::function<IApplicationWare*(int, const char**)>;
 
 public:
     void registerAppFuns(const QString& name, AppFun);

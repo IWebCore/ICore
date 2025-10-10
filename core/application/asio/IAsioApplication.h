@@ -15,7 +15,7 @@ public:
 
 protected:
     virtual QString applicationType() const final;
-    virtual void invoke(int, const char**) final;
+    virtual IApplicationWare* invoke(int, const char**) final;
 };
 
 $PackageWebCoreEnd

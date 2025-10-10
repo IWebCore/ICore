@@ -1,8 +1,7 @@
 ﻿#if __has_include(<asio.hpp>)
 
 #include "IAsioContext.h"
-#include "core/application/default/IAsioTimer.h"
-#include "core/config/IContextImport.h"
+#include "core/application/asio/IAsioTimer.h"
 
 $PackageWebCoreBegin
 

@@ -23,7 +23,7 @@ public:
 
 protected:
     virtual QString applicationType() const = 0;
-    virtual void invoke(int, const char**) = 0;
+    virtual IApplicationWare* invoke(int, const char**) = 0;
 
 protected:
     QString m_applicationName;

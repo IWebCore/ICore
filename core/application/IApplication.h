@@ -5,9 +5,6 @@
 
 $PackageWebCoreBegin
 
-class IApplicationWare;
-extern IApplicationWare* iApp;
-
 class IApplication
 {
 public:

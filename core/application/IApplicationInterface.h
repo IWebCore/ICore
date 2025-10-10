@@ -19,8 +19,8 @@ template<typename T, bool enabled>
 void IApplicationInterface<T, enabled>::$task()
 {
     if constexpr (enabled){
-        IApplicationManage::instance().registerAppFuns(applicationType(), [&](int argc, const char** argv){
-            invoke(argc, argv);
+        IApplicationManage::instance().registerAppFuns(applicationType(), [&](int argc, const char** argv) -> IApplicationWare*{
+            return invoke(argc, argv);
         });
     }
 }
