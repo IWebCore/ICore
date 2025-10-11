@@ -1,4 +1,17 @@
-﻿#include "IAsioApplication.h"
+﻿#if __has_include(<asio.hpp>)
+
+#include "IAsioApplication.h"
+
+#include "IAsioApplication.h"
+#include "core/application/asio/IAsioContext.h"
+#include "core/application/asio/IAsioContext.h"
+#include "core/application/IApplicationManage.h"
+#include "core/config/IContextImport.h"
+#include "core/task/ITaskManage.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 $PackageWebCoreBegin
 
@@ -7,14 +20,54 @@ IAsioApplication::IAsioApplication()
 
 }
 
-// TODO:
-IApplicationTimerWare &IAsioApplication::time() const
+QString IAsioApplication::applicationName() const
 {
-    return *static_cast<IApplicationTimerWare*>(nullptr);
+    return qApp->applicationName();
+}
+
+QString IAsioApplication::applicationPath() const
+{
+    return qApp->applicationFilePath();
+}
+
+QString IAsioApplication::workingDirectory() const
+{
+    return QDir::currentPath();
+}
+
+QStringList IAsioApplication::arguments() const
+{
+    return qApp->arguments();
+}
+
+IHandle IAsioApplication::startTimer(std::chrono::milliseconds duration, TaskType task)
+{
+    return IAsioContext::startTimer(duration, task);
+}
+
+void IAsioApplication::stopTimer(IHandle handle)
+{
+    return IAsioContext::stopTimer(handle);
+}
+
+void IAsioApplication::post(TaskType task)
+{
+    IAsioContext::post(task);
+}
+
+int64_t IAsioApplication::time()
+{
+    return ++m_time;
 }
 
 int IAsioApplication::exec()
 {
+    if(!m_threadCount){
+        $ContextInt count{"/system/threadCount", static_cast<int>(std::thread::hardware_concurrency() * 2)};
+        m_threadCount = *count;
+    }
+    IAsioContext::instance().run(m_threadCount);
+
     return 0;
 }
 
@@ -23,14 +76,28 @@ QString IAsioApplication::applicationType() const
     return "asio";
 }
 
-IApplicationWare* IAsioApplication::invoke(int argc, const char ** argv)
+IApplicationWare* IAsioApplication::invoke(int argc, char ** argv)
 {
-    return &ISolo<IAsioApplication>();
+    static QCoreApplication qCoreApp(argc, argv);
+    ITaskManage::run();
+    return this;
 }
 
+void IAsioApplication::$task()
+{
+    IApplicationManage::instance().registerAppFuns(applicationType(), [&](int argc, char** argv) -> IApplicationWare*{
+        return invoke(argc, argv);
+    });
+
+    m_time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock().now().time_since_epoch()).count();
+    IAsioContext::startTimer(std::chrono::seconds(1), [&](){
+        m_time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock().now().time_since_epoch()).count();
+    });
+}
 
 $PackageWebCoreEnd
 
+#endif
 
 // #if __has_include(<asio.hpp>)
 

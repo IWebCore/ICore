@@ -1,13 +1,28 @@
 ﻿#include "IApplicationManage.h"
-#include "core/application/IApplicationWare.h"
+
 // #include "core/application/IAsioContext.h"
 // #include <QCoreApplication>
 
+
+
+
 $PackageWebCoreBegin
 
-IApplicationWare* iApp = nullptr;
+void IApplicationManage::registerAppFuns(const QString &name, AppFun fun)
+{
+    m_appFuns[name] = fun;
+}
+
+IApplicationManage::AppFun IApplicationManage::getAppFunction(const QString & name)
+{
+    if(m_appFuns.contains(name)){
+        return m_appFuns[name];
+    }
+    return nullptr;
+}
 
 $PackageWebCoreEnd
+
 
 // namespace detail
 // {
@@ -92,18 +107,4 @@ $PackageWebCoreEnd
 
 //     return s_time ++;
 // }
-
-void IApplicationManage::registerAppFuns(const QString &name, AppFun fun)
-{
-    m_appFuns[name] = fun;
-}
-
-IApplicationManage::AppFun IApplicationManage::getAppFunction(const QString & name)
-{
-    if(m_appFuns.contains(name)){
-        return m_appFuns[name];
-    }
-    return nullptr;
-}
-
 

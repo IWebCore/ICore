@@ -21,6 +21,7 @@ HEADERS += \
     $$PWD/core/application/asio/IAsioApplication.h \
     $$PWD/core/application/asio/IAsioContext.h \
     $$PWD/core/application/asio/IAsioTimer.h \
+    $$PWD/core/application/iApp.h \
     $$PWD/core/base/IException.h \
     $$PWD/core/base/IHandle.h \
     $$PWD/core/base/IJson.h \
@@ -112,11 +113,10 @@ SOURCES += \
     $$PWD/core/abort/IGlobalAbort.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/core/application/IApplicationManage.cpp \
-    $$PWD/core/application/IApplicationWare.cpp \
     $$PWD/core/application/asio/IAsioApplication.cpp \
     $$PWD/core/application/asio/IAsioContext.cpp \
     $$PWD/core/application/asio/IAsioTimer.cpp \
-    $$PWD/core/application/asio/ITimer.cpp \
+    $$PWD/core/application/iApp.cpp \
     $$PWD/core/base/IException.cpp \
     $$PWD/core/base/IJson.cpp \
     $$PWD/core/base/IString.cpp \

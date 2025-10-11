@@ -1,8 +1,6 @@
 ﻿#pragma once
 
-#include "core/util/IHeaderUtil.h"
 #include "core/unit/ISoloUnit.h"
-#include "core/base/IHandle.h"
 
 $PackageWebCoreBegin
 
@@ -10,7 +8,7 @@ class IApplicationWare;
 class IApplicationManage : public ISoloUnit<IApplicationManage>
 {
 public:
-    using AppFun = std::function<IApplicationWare*(int, const char**)>;
+    using AppFun = std::function<IApplicationWare*(int, char**)>;
 
 public:
     void registerAppFuns(const QString& name, AppFun);

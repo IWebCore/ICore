@@ -2,7 +2,6 @@
 
 #if __has_include(<asio.hpp>)
 
-#include "core/util/IHeaderUtil.h"
 #include "core/unit/ISoloUnit.h"
 #include "core/base/IHandle.h"
 

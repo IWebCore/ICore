@@ -6,24 +6,41 @@
 #include "core/unit/ISoloUnit.h"
 
 template<typename T, bool enabled=true>
-class IApplicationInterface : public IApplicationWare, public ITaskInstantUnit<T, true> //, ISoloUnit<T>
+class IApplicationInterface : public IApplicationWare, public ITaskInstantUnit<T, true>, public ISoloUnit<T>
 {
 public:
     IApplicationInterface() = default;
 
-public:
-    virtual void $task() override;
+// protected:
+//     void initTask();
+
+// private:
+    // virtual void $task() override;
+
+// private:
+//     std::atomic_int64_t m_time;
 };
 
-template<typename T, bool enabled>
-void IApplicationInterface<T, enabled>::$task()
-{
-    if constexpr (enabled){
-        IApplicationManage::instance().registerAppFuns(applicationType(), [&](int argc, const char** argv) -> IApplicationWare*{
-            return invoke(argc, argv);
-        });
-    }
-}
+// template<typename T, bool enabled>
+// void IApplicationInterface<T, enabled>::initTask()
+// {
+//     return ITaskManage::run();
+// }
+
+// template<typename T, bool enabled>
+// void IApplicationInterface<T, enabled>::$task()
+// {
+//     if constexpr (enabled){
+//         IApplicationManage::instance().registerAppFuns(applicationType(), [&](int argc, char** argv) -> IApplicationWare*{
+//             return invoke(argc, argv);
+//         });
+
+//         IApplicationInterface::m_time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock().now().time_since_epoch()).count();
+//         IAsioContext::startTimer(std::chrono::seconds(1), [&](){
+//             IApplicationInterface::m_time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock().now().time_since_epoch()).count();
+//         });
+//     }
+// }
 
 
 

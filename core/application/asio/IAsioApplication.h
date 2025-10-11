@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#if __has_include(<asio.hpp>)
+
 #include "core/application/IApplicationInterface.h"
 
 $PackageWebCoreBegin
@@ -10,16 +12,35 @@ public:
     IAsioApplication();
 
 public:
-    virtual IApplicationTimerWare& time() const final;
+    virtual QString applicationName() const final;
+    virtual QString applicationPath() const final;
+    virtual QString workingDirectory() const final;
+    virtual QStringList arguments() const final;
+
+public:
+    virtual std::int64_t time() final;
+    virtual IHandle startTimer(std::chrono::milliseconds duration, TaskType task) final;
+    virtual void stopTimer(IHandle) final;
+    virtual void post(TaskType) final;
+
+public:
     virtual int exec() final;
 
 protected:
     virtual QString applicationType() const final;
-    virtual IApplicationWare* invoke(int, const char**) final;
+    virtual IApplicationWare* invoke(int, char**) final;
+
+private:
+    virtual void $task() final;
+
+private:
+    int m_threadCount{};
+    std::atomic_int64_t m_time{};
 };
 
 $PackageWebCoreEnd
 
+#endif
 
 // #pragma once
 
