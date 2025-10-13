@@ -12,7 +12,7 @@ public:
     using Task = std::function<void()>;
 
 public:
-    IAsioTimer(std::chrono::milliseconds duration, Task );
+    IAsioTimer(std::chrono::milliseconds duration, Task);
     ~IAsioTimer();
 
 public:

@@ -1,15 +1,15 @@
-﻿#pragma once
+#pragma once
 
-#if __has_include(<asio.hpp>)
+#if __has_include(<QGuiApplication>)
 
 #include "core/application/IApplicationInterface.h"
 
 $PackageWebCoreBegin
 
-class IAsioApplication : public IApplicationInterface<IAsioApplication>
+    class IQGuiApplication : public IApplicationInterface<IQGuiApplication>
 {
 public:
-    IAsioApplication();
+    IQGuiApplication();
 
 public:
     virtual IHandle startTimer(std::chrono::milliseconds duration, TaskType task) final;
@@ -21,9 +21,7 @@ public:
 
 protected:
     virtual QString applicationType() const final;
-
-private:
-    int m_threadCount{};
+    virtual IApplicationWare* invoke(int argc, char ** argv) final;
 };
 
 $PackageWebCoreEnd

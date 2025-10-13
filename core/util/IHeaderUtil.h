@@ -5,12 +5,20 @@
 #ifndef  __IWEBCORE_IHEADERUTIL_GUARD__
 #define  __IWEBCORE_IHEADERUTIL_GUARD__
 
-#include <QObject>
-#include <QMetaObject>
-#include <QtCore>
+#if __has_include(<QtCore>)
+    #include <QtCore>
+#endif
 
 #if __has_include(<QtSql>)
     #include <QtSql>
+#endif
+
+#if __has_include(<QtGui>)
+    #include <QtGui>
+#endif
+
+#if __has_include(<QtWidgets>)
+    #include <QtWidgets>
 #endif
 
 #include <type_traits>

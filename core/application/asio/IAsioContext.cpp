@@ -10,6 +10,7 @@ IAsioContext::~IAsioContext()
     for(auto timer : m_timers){
         delete timer;
     }
+    m_timers.clear();
 }
 
 asio::io_context &IAsioContext::getContext()
@@ -44,7 +45,7 @@ IHandle IAsioContext::startTimer(std::chrono::milliseconds duration, IAsioContex
 
 void IAsioContext::stopTimer(IHandle ptr)
 {
-    for(auto timer : instance().m_timers){
+    for(auto& timer : instance().m_timers){
         if(ptr == reinterpret_cast<IHandle>(timer)){
             instance().m_timers.removeOne(timer);
             timer->cancelTimer();

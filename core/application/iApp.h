@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IApplicationWare.h"
-#include "IApplicationTimerWare.h"
 
 $PackageWebCoreBegin
 

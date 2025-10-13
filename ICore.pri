@@ -16,12 +16,15 @@ HEADERS += \
     $$PWD/core/application/IApplicationAnnomacro.h \
     $$PWD/core/application/IApplicationInterface.h \
     $$PWD/core/application/IApplicationManage.h \
-    $$PWD/core/application/IApplicationTimerWare.h \
     $$PWD/core/application/IApplicationWare.h \
     $$PWD/core/application/asio/IAsioApplication.h \
     $$PWD/core/application/asio/IAsioContext.h \
     $$PWD/core/application/asio/IAsioTimer.h \
     $$PWD/core/application/iApp.h \
+    $$PWD/core/application/qcore/IQCoreApplication.h \
+    $$PWD/core/application/qcore/IQCoreContext.h \
+    $$PWD/core/application/qcore/IQCoreTimer.h \
+    $$PWD/core/application/qgui/IQGuiApplication.h \
     $$PWD/core/base/IException.h \
     $$PWD/core/base/IHandle.h \
     $$PWD/core/base/IJson.h \
@@ -113,10 +116,15 @@ SOURCES += \
     $$PWD/core/abort/IGlobalAbort.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/core/application/IApplicationManage.cpp \
+    $$PWD/core/application/IApplicationWare.cpp \
     $$PWD/core/application/asio/IAsioApplication.cpp \
     $$PWD/core/application/asio/IAsioContext.cpp \
     $$PWD/core/application/asio/IAsioTimer.cpp \
     $$PWD/core/application/iApp.cpp \
+    $$PWD/core/application/qcore/IQCoreApplication.cpp \
+    $$PWD/core/application/qcore/IQCoreContext.cpp \
+    $$PWD/core/application/qcore/IQCoreTimer.cpp \
+    $$PWD/core/application/qgui/IQGuiApplication.cpp \
     $$PWD/core/base/IException.cpp \
     $$PWD/core/base/IJson.cpp \
     $$PWD/core/base/IString.cpp \
