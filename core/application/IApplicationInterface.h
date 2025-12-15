@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "IApplicationWare.h"
-#include "core/task/unit/ITaskInstantUnit.h"
 #include "IApplicationManage.h"
+#include "core/task/unit/ITaskInstantUnit.h"
 #include "core/unit/ISoloUnit.h"
 
 template<typename T, bool enabled=true>

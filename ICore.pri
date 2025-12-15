@@ -16,6 +16,7 @@ HEADERS += \
     $$PWD/core/application/IApplicationAnnomacro.h \
     $$PWD/core/application/IApplicationInterface.h \
     $$PWD/core/application/IApplicationManage.h \
+    $$PWD/core/application/IApplicationShutdown.h \
     $$PWD/core/application/IApplicationWare.h \
     $$PWD/core/application/asio/IAsioApplication.h \
     $$PWD/core/application/asio/IAsioContext.h \
@@ -116,6 +117,7 @@ SOURCES += \
     $$PWD/core/abort/IGlobalAbort.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/core/application/IApplicationManage.cpp \
+    $$PWD/core/application/IApplicationShutdown.cpp \
     $$PWD/core/application/IApplicationWare.cpp \
     $$PWD/core/application/asio/IAsioApplication.cpp \
     $$PWD/core/application/asio/IAsioContext.cpp \

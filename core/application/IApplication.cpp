@@ -9,9 +9,18 @@ IApplication::IApplication(int argc, char **argv, const QString &type)
     if(iApp){
         qFatal("app already started");
     }
-    if(auto fun = IApplicationManage::instance().getAppFunction(type); fun){
+
+    if(type.isEmpty()){
+        if(auto fun = IApplicationManage::instance().getAppFunction("asio"); fun){
+            iApp = fun(argc, argv);
+        }else if(auto fun = IApplicationManage::instance().getAppFunction("QCore"); fun){
+            iApp = fun(argc, argv);
+        }
+    }else if(auto fun = IApplicationManage::instance().getAppFunction(type); fun){
         iApp = fun(argc, argv);
-    }else{
+    }
+
+    if(!iApp){
         qFatal("app function not found");
     }
 }
