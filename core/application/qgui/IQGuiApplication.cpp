@@ -1,5 +1,10 @@
 #if __has_include(<QGuiApplication>)
 
+#if __has_include(<QApplication>)
+#include <QApplication>
+#endif
+
+#include <QGuiApplication>
 #include "IQGuiApplication.h"
 #include "core/application/qcore/IQCoreContext.h"
 #include "core/task/ITaskManage.h"
@@ -40,7 +45,12 @@ QString IQGuiApplication::applicationType() const
 
 IApplicationWare* IQGuiApplication::invoke(int argc, char ** argv)
 {
+
+#if __has_include(<QApplication>)
     static QApplication app(argc, argv);
+#else
+    static QGuiApplication app(argc, argv);
+#endif
     ITaskManage::run();
     return this;
 }
