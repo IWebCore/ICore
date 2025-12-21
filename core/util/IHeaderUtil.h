@@ -5,6 +5,17 @@
 #ifndef  __IWEBCORE_IHEADERUTIL_GUARD__
 #define  __IWEBCORE_IHEADERUTIL_GUARD__
 
+#if __has_include(<asio.hpp>)
+    #include <asio.hpp>
+    #ifdef ENABLE_SSL
+        #include <asio/ssl.hpp>
+    #endif
+#endif
+
+#if __has_include(<json.hpp>)
+    #include <json.hpp>
+#endif
+
 #if __has_include(<QtCore>)
     #include <QtCore>
 #endif
@@ -27,12 +38,5 @@
 #include "core/base/IString.h"
 #include "core/base/IStringViewStash.h"
 #include "core/base/IStringView.h"
-
-#if __has_include(<asio.hpp>)
-    #include <asio.hpp>
-    #ifdef ENABLE_SSL
-        #include <asio/ssl.hpp>
-    #endif
-#endif
 
 #endif
