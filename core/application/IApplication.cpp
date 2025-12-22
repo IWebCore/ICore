@@ -23,6 +23,8 @@ IApplication::IApplication(int argc, char **argv, const QString &type)
     if(!iApp){
         qFatal("app function not found");
     }
+
+    ITaskManage::run();
 }
 
 IApplication::~IApplication()

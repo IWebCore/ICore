@@ -18,13 +18,13 @@ private:
     virtual void $task() override;
 
 protected:
-    std::atomic_int64_t m_time{};
+    inline static std::atomic_int64_t m_time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock().now().time_since_epoch()).count();;
 };
 
 template<typename T, bool enabled>
 IApplicationInterface<T, enabled>::IApplicationInterface()
 {
-    m_time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock().now().time_since_epoch()).count();
+    // m_time =
 }
 
 template<typename T, bool enabled>

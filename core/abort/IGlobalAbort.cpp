@@ -2,6 +2,8 @@
 
 $PackageWebCoreBegin
 
+template class IAbortInterface<IGlobalAbort>;
+
 QMap<int, QString> IGlobalAbort::abortDescription() const{
     return {
         {UnVisibleMethod, "this method must not be called at any time, but due to qt meta issue, this function must exist,"

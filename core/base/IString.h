@@ -1,7 +1,9 @@
 ﻿#pragma once
 
-#include <QtCore>
+#include <QMetaType>
 #include <string>
+#include <list>
+#include <vector>
 #include "core/base/IStringView.h"
 #include "core/base/IResult.h"
 
@@ -128,6 +130,14 @@ IString& IString::operator=(const char (*data)[N])
     m_view = IStringView(*data, N-1);
     return *this;
 }
+
+extern template class QList<IString>;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    extern template class QVector<IString>;
+#endif
+
+extern template class std::list<IString>;
+extern template class std::vector<IString>;
 
 using IStringList = QList<IString>;
 

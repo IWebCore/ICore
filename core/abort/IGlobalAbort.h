@@ -22,4 +22,6 @@ protected:
     virtual QString abortComment() final;
 };
 
+extern template class IAbortInterface<IGlobalAbort>;
+
 $PackageWebCoreEnd

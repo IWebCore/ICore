@@ -427,3 +427,10 @@ void IString::moveFrom(IString&& other) noexcept {
     }
 }
 
+template class QList<IString>;
+template class std::list<IString>;
+template class std::vector<IString>;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+template class QVector<IString>;
+#endif
+

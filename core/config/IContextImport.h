@@ -44,6 +44,29 @@ using $Context = IContextImport<T>;
 template<typename T>
 using $ContextMap = IContextImport<std::map<std::string, T>>;
 
+
+extern template class IContextImport<IJson>;
+extern template class IContextImport<bool>;
+extern template class IContextImport<char>;
+extern template class IContextImport<uchar>;
+extern template class IContextImport<signed char>;
+extern template class IContextImport<short>;
+extern template class IContextImport<ushort>;
+extern template class IContextImport<int>;
+extern template class IContextImport<uint>;
+extern template class IContextImport<long>;
+extern template class IContextImport<ulong>;
+extern template class IContextImport<long long>;
+extern template class IContextImport<qulonglong>;
+extern template class IContextImport<float>;
+extern template class IContextImport<double>;
+extern template class IContextImport<long double>;
+
+extern template class IContextImport<std::map<std::string, std::string>>;
+extern template class IContextImport<QString>;
+extern template class IContextImport<std::string>;
+extern template class IContextImport<QStringList>;
+
 using $ContextJson = $Context<IJson>;
 using $ContextBool = $Context<bool>;
 using $ContextChar = $Context<char>;

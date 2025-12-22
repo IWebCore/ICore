@@ -19,23 +19,15 @@ enum class IBeanTrait
 };
 
 template<typename T, bool enabled = true, IBeanTrait trait = IBeanTrait::Tolerance>
-class IBeanManualInterface : public ITaskInstantUnit<T, enabled>
+class IBeanInterface : public ITaskInstantUnit<T, enabled>
 {
 public:
-    IBeanManualInterface() = default;
-    virtual ~IBeanManualInterface() = default;
+    virtual void $task() override;
 
 public:
     virtual IJson toJson() const;
     virtual bool loadJson(const IJson &value, const IBeanTrait& = trait);
     static IResult<T> fromJson(const IJson& value, const IBeanTrait& = trait);
-};
-
-template<typename T, bool enabled = true, IBeanTrait trait = IBeanTrait::Tolerance>
-class IBeanInterface : public IBeanManualInterface<T, enabled, trait>
-{
-public:
-    virtual void $task() override;
 };
 
 namespace detail
@@ -57,14 +49,14 @@ namespace detail
 }
 
 template<typename T, bool enabled, IBeanTrait trait>
-IJson IBeanManualInterface<T, enabled, trait>::toJson() const
+IJson IBeanInterface<T, enabled, trait>::toJson() const
 {
     static const auto methodMap = detail::getMethodMap(T::staticMetaObject);
     return detail::processToJson(this, methodMap);
 }
 
 template<typename T, bool enabled, IBeanTrait trait>
-bool IBeanManualInterface<T, enabled, trait>::loadJson(const IJson &value, const IBeanTrait& beanTrait)
+bool IBeanInterface<T, enabled, trait>::loadJson(const IJson &value, const IBeanTrait& beanTrait)
 {
     static const auto required = detail::getRequiredMethodMap(T::staticMetaObject);
     static const auto optional = detail::getOptionalMethodMap(T::staticMetaObject);
@@ -74,7 +66,7 @@ bool IBeanManualInterface<T, enabled, trait>::loadJson(const IJson &value, const
 }
 
 template<typename T, bool enabled, IBeanTrait trait>
-IResult<T> IBeanManualInterface<T, enabled, trait>::fromJson(const IJson& value, const IBeanTrait& beanTrait)
+IResult<T> IBeanInterface<T, enabled, trait>::fromJson(const IJson& value, const IBeanTrait& beanTrait)
 {
     T t;
     if(t.loadJson(value, beanTrait)){
@@ -86,8 +78,8 @@ IResult<T> IBeanManualInterface<T, enabled, trait>::fromJson(const IJson& value,
 template<typename T, bool enabled, IBeanTrait trait>
 void IBeanInterface<T, enabled, trait>::$task()
 {
-    IRegisterMetaTypeUnit<T>::registerBean();
     IRegisterMetaTypeUnit<T>::registType();
+    IRegisterMetaTypeUnit<T>::registerBean();
 }
 
 $PackageWebCoreEnd

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
-#include <QtCore>
+#include <QString>
+#include <QMetaType>
 #include <json.hpp>
 #include <string>
 
@@ -33,6 +34,5 @@ struct adl_serializer<QString>
     }
 };
 }
-
 
 #endif

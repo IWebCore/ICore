@@ -26,7 +26,6 @@ QStringList IApplicationWare::arguments() const
 IApplicationWare *IApplicationWare::invoke(int argc, char ** argv)
 {
     static QCoreApplication qCoreApp(argc, argv);
-    ITaskManage::run();
     return this;
 }
 

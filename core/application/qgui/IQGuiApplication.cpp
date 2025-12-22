@@ -45,13 +45,11 @@ QString IQGuiApplication::applicationType() const
 
 IApplicationWare* IQGuiApplication::invoke(int argc, char ** argv)
 {
-
 #if __has_include(<QApplication>)
     static QApplication app(argc, argv);
 #else
     static QGuiApplication app(argc, argv);
 #endif
-    ITaskManage::run();
     return this;
 }
 

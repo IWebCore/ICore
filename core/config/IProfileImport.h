@@ -44,6 +44,28 @@ using $Profile = IProfileImport<T>;
 template<typename T>
 using $ProfileMap = IProfileImport<std::map<std::string, T>>;
 
+extern template class IProfileImport<IJson>;
+extern template class IProfileImport<bool>;
+extern template class IProfileImport<char>;
+extern template class IProfileImport<uchar>;
+extern template class IProfileImport<signed char>;
+extern template class IProfileImport<short>;
+extern template class IProfileImport<ushort>;
+extern template class IProfileImport<int>;
+extern template class IProfileImport<uint>;
+extern template class IProfileImport<long>;
+extern template class IProfileImport<ulong>;
+extern template class IProfileImport<long long>;
+extern template class IProfileImport<qulonglong>;
+extern template class IProfileImport<float>;
+extern template class IProfileImport<double>;
+extern template class IProfileImport<long double>;
+
+extern template class IProfileImport<std::map<std::string, std::string>>;
+extern template class IProfileImport<QString>;
+extern template class IProfileImport<std::string>;
+extern template class IProfileImport<QStringList>;
+
 using $ProfileIJson = $Profile<IJson>;
 using $ProfileBool = $Profile<bool>;
 using $ProfileChar = $Profile<char>;
