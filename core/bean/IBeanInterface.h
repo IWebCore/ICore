@@ -1,22 +1,22 @@
 ﻿#pragma once
 
+#ifdef IWEBCORE_FLATTEN_CRTP
+
+#include "IBeanInterface_flatten.h"
+
+#else
+
 #include "IBeanAbort.h"
 #include "IBeanTypeManage.h"
 #include "IBeanPreProcessor.h"
 #include "core/base/IResult.h"
 #include "core/util/IMetaUtil.h"
 #include "core/unit/ITraceUnit.h"
+#include "core/bean/detail/IBeanInterfaceDetail.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
 $PackageWebCoreBegin
-
-enum class IBeanTrait
-{
-    Tolerance = 1 << 0,
-    Exact = 1 << 1,
-    Full = 1 << 2
-};
 
 template<typename T, bool enabled = true, IBeanTrait trait = IBeanTrait::Tolerance>
 class IBeanInterface : public ITaskInstantUnit<T, enabled>
@@ -30,23 +30,6 @@ public:
     static IResult<T> fromJson(const IJson& value, const IBeanTrait& = trait);
 };
 
-namespace detail
-{
-    std::map<std::string, QMetaMethod> getMethodMap(const QMetaObject&);
-    IJson processToJson(const void*, const std::map<std::string, QMetaMethod>&);
-
-    std::map<std::string, QMetaMethod> getRequiredMethodMap(const QMetaObject&);
-    std::map<std::string, QMetaMethod> getOptionalMethodMap(const QMetaObject&);
-    QMetaMethod getJsonValidatorMethod(const QMetaObject&);
-    QVector<std::string> getFieldNames(const QMetaObject&);
-    bool processLoadJson(const void* handle,
-                         const IJson &value,
-                         const IBeanTrait& beanTrait,
-                         const std::map<std::string, QMetaMethod>& required,
-                         const std::map<std::string, QMetaMethod>& optional,
-                         const QVector<std::string>& fieldNames,
-                         const QMetaMethod& validator);
-}
 
 template<typename T, bool enabled, IBeanTrait trait>
 IJson IBeanInterface<T, enabled, trait>::toJson() const
@@ -83,3 +66,5 @@ void IBeanInterface<T, enabled, trait>::$task()
 }
 
 $PackageWebCoreEnd
+
+#endif
