@@ -18,6 +18,10 @@ class IBeanInterface //: public ITaskInstantUnit<T, enabled>
 {
     $AsTaskUnit(IBeanInterface)
 public:
+    IBeanInterface() = default;
+    virtual ~IBeanInterface() = default;
+
+public:
     void $task() ;
 
 public:
