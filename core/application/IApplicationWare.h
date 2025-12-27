@@ -32,6 +32,9 @@ public:
 protected:
     virtual QString applicationType() const = 0;
     virtual IApplicationWare* invoke(int, char**);
+
+protected:
+    QCoreApplication* m_qCoreApplication{};
 };
 
 $PackageWebCoreEnd
