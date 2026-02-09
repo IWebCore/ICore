@@ -13,6 +13,9 @@ public:
 public:
     void registerAppFuns(const QString& name, AppFun);
     AppFun getAppFunction(const QString&);
+    
+    void regiserCleaner();
+    
 
 private:
     QMap<QString, AppFun> m_appFuns;

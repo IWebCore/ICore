@@ -20,12 +20,14 @@ QString IApplicationWare::workingDirectory() const
 
 QStringList IApplicationWare::arguments() const
 {
-    return qApp->arguments();
+    return m_arguments;
+    // return m_qCoreApplication->arguments();
 }
 
 IApplicationWare *IApplicationWare::invoke(int argc, char ** argv)
 {
     static QCoreApplication qCoreApp(argc, argv);
+    m_arguments = qCoreApp.arguments();
     m_qCoreApplication = &qCoreApp;
     return this;
 }

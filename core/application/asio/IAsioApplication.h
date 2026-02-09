@@ -21,9 +21,6 @@ public:
 
 protected:
     virtual QString applicationType() const final;
-
-private:
-    int m_threadCount{};
 };
 
 $PackageWebCoreEnd

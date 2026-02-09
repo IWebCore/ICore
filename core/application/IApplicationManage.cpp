@@ -3,9 +3,6 @@
 // #include "core/application/IAsioContext.h"
 // #include <QCoreApplication>
 
-
-
-
 $PackageWebCoreBegin
 
 void IApplicationManage::registerAppFuns(const QString &name, AppFun fun)

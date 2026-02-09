@@ -7,7 +7,7 @@
 
 #if __has_include(<asio.hpp>)
     #include <asio.hpp>
-    #ifdef ENABLE_SSL
+    #ifdef IWEBCORE_ENABLE_SSL
         #include <asio/ssl.hpp>
     #endif
 #endif

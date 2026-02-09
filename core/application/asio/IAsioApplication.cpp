@@ -31,12 +31,24 @@ void IAsioApplication::post(TaskType task)
 
 int IAsioApplication::exec()
 {
+
+    IAsioContext::instance();
     startTimer(std::chrono::seconds(1), [&](){
+        qDebug() << "start timer";
         m_time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock().now().time_since_epoch()).count();
     });
 
-    $ContextInt count{"/system/threadCount", static_cast<int>(std::thread::hardware_concurrency() * 2)};
-    IAsioContext::instance().run(*count);
+    std::thread thread([&](){
+        $ContextInt count{"/system/threadCount", static_cast<int>(std::thread::hardware_concurrency() * 2)};
+        IAsioContext::instance().run(*count);
+    });
+    thread.detach();
+
+    // std::thread thread2([&](){
+    // });
+    // thread2.detach();
+
+    return m_qCoreApplication->exec();
     return 0;
 }
 

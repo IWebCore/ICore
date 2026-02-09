@@ -5,6 +5,11 @@
 
 $PackageWebCoreBegin
 
+IAsioContext::IAsioContext()
+{
+
+}
+
 IAsioContext::~IAsioContext()
 {
     for(auto timer : m_timers){
@@ -38,9 +43,10 @@ void IAsioContext::post(IAsioContext::Task task)
 
 IHandle IAsioContext::startTimer(std::chrono::milliseconds duration, IAsioContext::Task task)
 {
-    auto timer = new IAsioTimer(duration, task);
-    instance().m_timers.append(timer);
-    return reinterpret_cast<IHandle>(timer);
+    return 0;
+    // auto timer = new IAsioTimer(duration, task);
+    // instance().m_timers.append(timer);
+    // return reinterpret_cast<IHandle>(timer);
 }
 
 void IAsioContext::stopTimer(IHandle ptr)

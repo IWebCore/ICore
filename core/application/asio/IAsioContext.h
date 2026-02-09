@@ -14,7 +14,7 @@ public:
     using Task = std::function<void()>;
 
 public:
-    IAsioContext() = default;
+    IAsioContext();
     ~IAsioContext();
 
 public:

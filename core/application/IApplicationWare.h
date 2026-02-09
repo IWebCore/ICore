@@ -35,6 +35,7 @@ protected:
 
 protected:
     QCoreApplication* m_qCoreApplication{};
+    QStringList m_arguments;
 };
 
 $PackageWebCoreEnd
