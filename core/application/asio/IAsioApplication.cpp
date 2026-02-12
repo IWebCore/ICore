@@ -31,10 +31,8 @@ void IAsioApplication::post(TaskType task)
 
 int IAsioApplication::exec()
 {
-
     IAsioContext::instance();
     startTimer(std::chrono::seconds(1), [&](){
-        qDebug() << "start timer";
         m_time = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock().now().time_since_epoch()).count();
     });
 
@@ -43,10 +41,6 @@ int IAsioApplication::exec()
         IAsioContext::instance().run(*count);
     });
     thread.detach();
-
-    // std::thread thread2([&](){
-    // });
-    // thread2.detach();
 
     return m_qCoreApplication->exec();
     return 0;
