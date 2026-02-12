@@ -47,7 +47,7 @@ void IAsioContext::post(IAsioContext::Task task)
     instance().m_context.post(task);
 }
 
-// when llvm compiler, here will crash, and i dont known why.
+// see: https://github.com/chriskohlhoff/asio/issues/1646
 IHandle IAsioContext::startTimer(std::chrono::milliseconds duration, IAsioContext::Task task)
 {
 #ifdef __clang__
