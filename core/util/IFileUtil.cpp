@@ -17,7 +17,7 @@ IResult<QString> IFileUtil::readFileAsString(const QString &path)
     return std::nullopt;
 }
 
-QString IFileUtil::readFileAsString2(const QString &path)
+QString IFileUtil::readFileAsStringOrDefault(const QString &path)
 {
      bool ok;
      QString content = readFileAsString(path, ok);
@@ -25,6 +25,29 @@ QString IFileUtil::readFileAsString2(const QString &path)
          return {};
      }
      return content;
+}
+
+std::string IFileUtil::readFileAsString(const std::string &path, bool& ok)
+{
+    return readFileAsString(QString::fromStdString(path), ok).toStdString();
+}
+
+IResult<std::string> IFileUtil::readFileAsString(const std::string &path)
+{
+    bool ok;
+    auto content = readFileAsString(path, ok);
+    if(ok){
+        return content;
+    }
+    return std::nullopt;
+}
+
+std::string IFileUtil::readFileAsStringOrDefault(const std::string &path)
+{
+    if(auto ret = readFileAsString(path); ret){
+        return *ret;
+    }
+    return {};
 }
 
 QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool* ok)
@@ -109,5 +132,6 @@ void IFileUtil::writeToFile(const QString &path, const QByteArray &content)
     file.write(content);
     file.close();
 }
+
 
 $PackageWebCoreEnd
